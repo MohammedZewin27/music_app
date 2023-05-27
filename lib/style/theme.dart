@@ -7,7 +7,7 @@ class MyTheme {
   static ThemeData lightTheme = ThemeData(
     // visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme:
-        ColorScheme.fromSeed(background: PREMIUMCOLOR, seedColor: BOTTOMMCOLOR),
+        ColorScheme.fromSeed(background: PREMIUMCOLOR, seedColor: BUTTONCOLOR),
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
