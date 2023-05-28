@@ -2,8 +2,17 @@
 class Assets {
   Assets._();
 
+  static const String fontsCherryCreamSodaRegular = 'assets/fonts/CherryCreamSoda-Regular.ttf';
+  static const String iconLeading = 'assets/icon/leading.png';
+  static const String iconMusic = 'assets/icon/music.png';
+  static const String iconMusicBack = 'assets/icon/musicBack.png';
+  static const String iconMusicIconCard = 'assets/icon/musicIconCard.png';
+  static const String iconPuse = 'assets/icon/puse.png';
+  static const String iconVector = 'assets/icon/Vector.png';
+  static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
   static const String imageLogo = 'assets/image/Logo.png';
   static const String imageSplash = 'assets/image/splash.png';
+
 
 }

@@ -1,4 +1,18 @@
 {
-  "appTitle": "سيشسي"
-
+  "appTitle": "Hello World!",
+  "singIn": "تسجيل الدخول",
+  "singInText": "سجِّل الدخول الآن للوصول إلى الموسيقى المحفوظة لديك.",
+  "email": "الإيميل",
+  "password": "كلمة المرور",
+  "forgot": "نسيت",
+  "dontHaveAccount": "لا امتلك حساب للدخول",
+  "singUp": "سجِّل الآن",
+  "singUpText": "سجِّل الآن وابدأ في التأمل، واستكشف ميديك",
+  "username": "اسم المستخدم",
+  "validUsername": "اسم المستخدم",
+  "validEmail": "الايميل",
+  "validEmail2": "الايميل غير صحيح",
+  "validPassword": "كلمة المرور",
+  "haveAccount": "لدي حساب للدخول"
 }
+

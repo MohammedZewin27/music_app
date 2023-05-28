@@ -11,16 +11,15 @@ class DefaultTextForm extends StatelessWidget {
   final IconData? suffixIcon;
   final bool isPassword;
 
-   const DefaultTextForm(
+  const DefaultTextForm(
       {super.key,
       required this.hintText,
       required this.controller,
       required this.validator,
-        this.textInputType,
-        this.suffixIcon,
-        this.functionIcon,
-        this.isPassword=false
-      });
+      this.textInputType,
+      this.suffixIcon,
+      this.functionIcon,
+      this.isPassword = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +27,19 @@ class DefaultTextForm extends StatelessWidget {
       controller: controller,
       validator: validator,
       keyboardType: textInputType,
-obscureText:isPassword ,
+      obscureText: isPassword,
       decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: Theme.of(context)
-              .textTheme
-              .bodySmall
-              ?.copyWith(color: LABLECOLOR),
-      suffixIcon: IconButton(
-          icon:  Icon(suffixIcon),
-        onPressed:functionIcon ,
-      ),
+        border: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
+        enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.white)),
+        hintText: hintText,
+        hintStyle:
+            Theme.of(context).textTheme.bodySmall?.copyWith(color: LABLECOLOR),
+        suffixIcon: IconButton(
+          icon: Icon(suffixIcon,color:LABLECOLOR1,),
+          onPressed: functionIcon,
+        ),
       ),
       style: Theme.of(context).textTheme.bodySmall,
     );

@@ -44,6 +44,7 @@ dependencies:
       sdk: flutter
   localization:
   intl: any
+  curved_labeled_navigation_bar: ^2.0.2
 
 
 
@@ -88,12 +89,12 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: My_Font
+      fonts:
+        - asset: assets/fonts/CherryCreamSoda-Regular.ttf
+        - asset: assets/fonts/CherryCreamSoda-Regular.ttf
+          style: italic
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
@@ -104,10 +105,10 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/
-    - assets/image/
-    - assets/image/2.0x/
-    - assets/image/3.0x/
-    - lib/i18n/
+    - assets/image/    - assets/icon/
+
+
+
 
 
 

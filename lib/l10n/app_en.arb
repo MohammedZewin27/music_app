@@ -1,4 +1,17 @@
 {
-  "appTitle": "Hello World!"
-
+  "appTitle": "Hello World!",
+  "singIn": "Sing In",
+  "singInText": "Sign in now to access your saved music.",
+  "email": "Email",
+  "password": "Password",
+  "forgot": "Forgot",
+  "dontHaveAccount": "Don't have an account?",
+  "singUp": "Sing Up",
+  "singUpText": "Sign up now for start meditating, and explore Medic.",
+  "username": "Username",
+  "validUsername": "please insert Username",
+  "validEmail": "please insert Email",
+  "validEmail2": "Correct the email",
+  "validPassword": "please insert password",
+  "haveAccount": "Already have an account?"
 }

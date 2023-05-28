@@ -1,95 +1,136 @@
 import 'package:flutter/material.dart';
 import 'package:new_music/componentes/defaultButton.dart';
 import 'package:new_music/componentes/defaultTextForm.dart';
-import 'package:new_music/screens/signupScreen/signupScreen.dart';
+import 'package:new_music/generated/assets.dart';
 
+import 'package:new_music/screens/signupScreen/signupScreen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:new_music/style/colors.dart';
+
+import '../LayoutScreen/LayoutScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   static const String routeName = 'loginScreen';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    var appLocal = AppLocalizations.of(context)!;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
-        body: Stack(
-          children: [
-            Image.asset(
-              'assets/image/back.png',
-              height: double.infinity,
-              width: double.infinity,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Sing In',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      'Sign in now to access your saved music.',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .11,
-                    ),
-                    DefaultTextForm(
-                        hintText: 'Email',
-                        controller: emailController,
-                        validator: (value) {}),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    DefaultTextForm(
-                        hintText: 'Password',
-                        controller: passwordController,
-                        validator: (value) {}),
-                    Row(
-                      children: [
-                        const Expanded(child: SizedBox()),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text('Forgot',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: LABLECOLOR)),
-                        ),
-                      ],
-                    ),
-                    DefaultButton(text: 'sign in', onPressed: () {}),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(context, SignUpScreen.routeName);
-                          },
-                          child: Text('Don’t have an account?',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.copyWith(color: LABLECOLOR)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+        body: Form(
+          key: formKey,
+          child: Stack(
+            children: [
+              Image.asset(
+                Assets.imageBack,
+                height: double.infinity,
+                width: double.infinity,
+                fit: BoxFit.fill,
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        appLocal.singIn,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        appLocal.singInText,
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .09,
+                      ),
+                      DefaultTextForm(
+                          hintText: appLocal.email,
+                          textInputType: TextInputType.emailAddress,
+                          controller: emailController,
+                          validator: (value) {
+                            if (value!.isEmpty || value == '') {
+                              return appLocal.validEmail;
+                            }
+                            final bool emailValid = RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(value);
+                            if (!emailValid) {
+                              return appLocal.validEmail2;
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      DefaultTextForm(
+                          hintText: appLocal.password,
+                          controller: passwordController,
+                          validator: (value) {
+                            if (value!.isEmpty ||
+                                value == '' ||
+                                value.length < 6) {
+                              return appLocal.validPassword;
+                            }
+                            return null;
+                          }),
+                      Row(
+                        children: [
+                          const Expanded(child: SizedBox()),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(appLocal.forgot,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: LABLECOLOR)),
+                          ),
+                        ],
+                      ),
+                      DefaultButton(
+                          text: appLocal.singIn,
+                          onPressed: () async {
+                            await goToHomeScreen(context);
+                          }),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                  context, SignUpScreen.routeName);
+                            },
+                            child: Text(appLocal.dontHaveAccount,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: LABLECOLOR)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  goToHomeScreen(BuildContext context) {
+    if(formKey.currentState!.validate()){
+      Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
+    }
   }
 }

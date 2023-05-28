@@ -15,11 +15,14 @@ class MyTheme {
         statusBarColor: PREMIUMCOLOR,
       ),
       color: PREMIUMCOLOR,
+      // iconTheme: IconThemeData(
+      //   color: TEXTCOLOR
+      // )
     ),
     textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontSize: 35),
-        bodyMedium: TextStyle(fontSize: 30, color: Colors.white),
-        bodySmall: TextStyle(fontSize: 20, color: Colors.white),
+        bodyLarge: TextStyle(color: TEXTCOLOR, fontSize: 35,fontFamily: 'My_Font'),
+        bodyMedium: TextStyle(fontSize: 30, color: TEXTCOLOR),
+        bodySmall: TextStyle(fontSize: 20, color: TEXTCOLOR),
 
 
 

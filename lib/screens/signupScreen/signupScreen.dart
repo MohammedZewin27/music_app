@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_music/generated/assets.dart';
 import 'package:new_music/screens/loginScreen/loginScreen.dart';
 import '../../componentes/defaultButton.dart';
 import '../../componentes/defaultTextForm.dart';
@@ -26,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var appLocal=AppLocalizations.of(context)!;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
@@ -34,63 +36,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Stack(
             children: [
               Image.asset(
-                'assets/image/back.png',
+                Assets.imageBack,
                 height: double.infinity,
                 width: double.infinity,
+                fit: BoxFit.fill,
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Sing Up',
+                        appLocal.singUp,
+
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(
                         height: 6,
                       ),
                       Text(
-                        'Sign up now for free and start meditating, and explore Medic.',
+                        appLocal.singUpText,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * .11,
+                        height: MediaQuery.of(context).size.height * .09,
                       ),
                       DefaultTextForm(
-                          hintText: 'Username',
+                          hintText: appLocal.username,
                           controller: usernameController,
                           validator: (value) {
                             if (value!.isEmpty || value == '') {
-                              return "please insert Username";
+                              return appLocal.validUsername;
                             }
                             return null;
                           }),
                       const SizedBox(
-                        height: 8,
+                        height: 10,
                       ),
                       DefaultTextForm(
-                          hintText: 'Email',
+                          hintText: appLocal.email,
                           textInputType: TextInputType.emailAddress,
                           controller: emailController,
                           validator: (value) {
                             if (value!.isEmpty || value == '') {
-                              return "please insert Email";
+                              return appLocal.validEmail;
                             }
                             final bool emailValid = RegExp(
                                     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                 .hasMatch(value);
                             if (!emailValid) {
-                              return 'Correct the email';
+                              return appLocal.validEmail2;
                             }
                             return null;
                           }),
                       const SizedBox(
-                        height: 8,
+                        height: 10,
                       ),
                       DefaultTextForm(
-                          hintText: 'Password',
+                          hintText: appLocal.password,
                           controller: passwordController,
                           isPassword: isPassword,
                           suffixIcon: isPassword
@@ -101,8 +105,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             setState(() {});
                           },
                           validator: (value) {
-                            if (value!.isEmpty || value == '') {
-                              return "please insert Username";
+                            if (value!.isEmpty || value == ''||value.length<6) {
+                              return appLocal.validPassword;
                             }
                             return null;
                           }),
@@ -110,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 15,
                       ),
                       DefaultElevatedButton(
-                          text: 'sign up',
+                          text: appLocal.singUp,
                           onPressed: () async {
                             await goToHomePage();
                           }),
@@ -122,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Navigator.pushReplacementNamed(
                                   context, LoginScreen.routeName);
                             },
-                            child: Text('Already have an account?',
+                            child: Text(appLocal.haveAccount,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -133,7 +137,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
+
             ],
           ),
         ),

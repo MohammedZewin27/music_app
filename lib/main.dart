@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:new_music/screens/homeLayoutScreen/homeLayoutScreen.dart';
+import 'package:new_music/provider/provider.dart';
+import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
 import 'package:new_music/screens/loginScreen/loginScreen.dart';
 import 'package:new_music/screens/signupScreen/signupScreen.dart';
 import 'package:new_music/screens/splash_screen/SplashScreen.dart';
 import 'package:new_music/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(
+
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => MyProvider(),)
+          ],
+
+          child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +35,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
@@ -37,10 +46,10 @@ locale: Locale('en'),
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkThem,
 
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LayoutScreen.routeName,
       routes: {
         SplashScreen.routeName:(context) => const SplashScreen(),
-        HomeLayoutScreen.routeName:(context) => const HomeLayoutScreen(),
+        LayoutScreen.routeName:(context) => const LayoutScreen(),
         LoginScreen.routeName:(context) =>  LoginScreen(),
         SignUpScreen.routeName:(context) =>  SignUpScreen(),
       },

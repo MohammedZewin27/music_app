@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_music/generated/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../LayoutScreen/LayoutScreen.dart';
 import '../loginScreen/loginScreen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -9,11 +11,16 @@ class SplashScreen extends StatelessWidget {
 static const String routeName='SplashScreen';
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3),
-    () => Navigator.pushReplacementNamed(context, LoginScreen.routeName),
+    Timer(const Duration(seconds: 1),
+    () => Navigator.pushReplacementNamed(context,LayoutScreen.routeName),
     );
-    return Scaffold(
-      body: Image.asset(Assets.imageSplash,fit: BoxFit.fill,width: double.infinity,height: double.infinity,),
+    return  Scaffold(
+      // body: Image.asset(Assets.imageSplash,fit: BoxFit.fill,width: double.infinity,height: double.infinity,),
+      body: Center(child: Text('Music',style: TextStyle(
+        fontSize: MediaQuery.of(context).size.width*.20,
+        fontFamily: 'My_Font',
+        color: Colors.white
+      ),)),
     );
   }
 }
