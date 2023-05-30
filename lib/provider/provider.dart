@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:new_music/screens/home_screen/home_screen.dart';
-import 'package:new_music/screens/music_screen/music_screen.dart';
+import 'package:new_music/screens/music_screen/play_screen.dart';
 import 'package:new_music/screens/setting_screen/setting_screen.dart';
 import 'package:new_music/screens/video_screen/video_screen.dart';
+
+import '../screens/music_screen/music_screen.dart';
 
 class MyProvider extends ChangeNotifier{
 
@@ -12,7 +14,15 @@ class MyProvider extends ChangeNotifier{
     Video_Screen(),
     Setting_Screen()
   ];
-int indexScreen=0;
+
+  List<String>textTitle=[
+   ' Home',
+    'Music',
+    'Video',
+    'Setting'
+  ];
+
+int indexScreen=1;
   changeCurrent(int index){
 indexScreen=index;
 notifyListeners();

@@ -1,12 +1,12 @@
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
-import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../generated/assets.dart';
-import '../../provider/provider.dart';
-import '../../style/colors.dart';
+import '../../../generated/assets.dart';
+import '../../../provider/provider.dart';
+import '../../provider/providerDatabase.dart';
+
+
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
@@ -14,36 +14,37 @@ class LayoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ProviderData>(context);
     var provider = Provider.of<MyProvider>(context);
+    var appLocal = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        leading:Image.asset(Assets.iconLeading,color: Colors.white) ,
+        leading: Image.asset(Assets.iconLeading, color: Colors.white),
+        title: Text(provider.textTitle[provider.indexScreen],),
       ),
-      bottomNavigationBar: CurvedNavigationBar(
-        index: provider.indexScreen,
-        backgroundColor: PREMIUMCOLOR,
-        buttonBackgroundColor: LABLECOLOR,
-        color: BUTTONCOLOR,
-        animationCurve: Curves.fastEaseInToSlowEaseOut,
-        animationDuration: const Duration(milliseconds: 600),
-        height: 55,
-        items: const [
-          CurvedNavigationBarItem(
-            child: Icon(Icons.home_outlined),
-          ),
-          CurvedNavigationBarItem(
-            child: Image(image: AssetImage(Assets.iconMusic,),color: Colors.black,),
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.video_collection_outlined),
-          ),
-          CurvedNavigationBarItem(
-            child: Icon(Icons.perm_identity),
-          ),
-        ],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: provider.indexScreen,
         onTap: (index) {
           provider.changeCurrent(index);
         },
+        items: [
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.home_outlined),
+              activeIcon: const Icon(Icons.home),
+              label: appLocal.home),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.library_music_outlined),
+              activeIcon: const Icon(Icons.library_music),
+              label: appLocal.music),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.video_collection_outlined),
+              activeIcon: const Icon(Icons.video_collection),
+              label: appLocal.video),
+          BottomNavigationBarItem(
+              icon: const Icon(Icons.perm_identity),
+              activeIcon: const Icon(Icons.person),
+              label: appLocal.setting),
+        ],
       ),
       body: provider.screens[provider.indexScreen],
     );

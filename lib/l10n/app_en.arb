@@ -1,5 +1,9 @@
 {
   "appTitle": "Hello World!",
+  "home": "Home",
+  "music": "Music",
+  "video": "Video",
+  "setting": "Setting",
   "singIn": "Sing In",
   "singInText": "Sign in now to access your saved music.",
   "email": "Email",

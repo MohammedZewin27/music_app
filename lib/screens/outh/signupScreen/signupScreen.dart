@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:new_music/generated/assets.dart';
-import 'package:new_music/screens/loginScreen/loginScreen.dart';
-import '../../componentes/defaultButton.dart';
-import '../../componentes/defaultTextForm.dart';
-import '../../style/colors.dart';
+
+import '../../../componentes/defaultButton.dart';
+import '../../../componentes/defaultTextForm.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../style/colors.dart';
+import '../loginScreen/loginScreen.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);

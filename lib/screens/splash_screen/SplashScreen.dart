@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:new_music/generated/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../LayoutScreen/LayoutScreen.dart';
-import '../loginScreen/loginScreen.dart';
+
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);

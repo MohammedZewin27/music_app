@@ -3,11 +3,14 @@ import 'package:new_music/componentes/defaultButton.dart';
 import 'package:new_music/componentes/defaultTextForm.dart';
 import 'package:new_music/generated/assets.dart';
 
-import 'package:new_music/screens/signupScreen/signupScreen.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:new_music/style/colors.dart';
 
-import '../LayoutScreen/LayoutScreen.dart';
+import '../../LayoutScreen/LayoutScreen.dart';
+import '../signupScreen/signupScreen.dart';
+
+
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);

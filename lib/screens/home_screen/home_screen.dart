@@ -20,7 +20,8 @@ class Home_Screen extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-            HomeCard(),HomeCard()
+            const HomeCard(title: 'video',image: Assets.iconVideoIcon),
+            const HomeCard(title: 'music',image: Assets.iconMusicIconCard,)
 
           ],
         ),

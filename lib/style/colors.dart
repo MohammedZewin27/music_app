@@ -9,8 +9,3 @@ const Color TEXTCOLOR=Color.fromRGBO(241, 238, 233, 1.0);
 
 
 
-//
-// const Color PREMIUMCOLOR=Color.fromRGBO(16, 86, 82, 1.0);
-// const Color BUTTONCOLOR=Color.fromRGBO(236, 153, 75, 1.0);
-// const Color LABLECOLOR1=Color.fromRGBO(241, 238, 233, 1.0);
-// const Color LABLECOLOR=Color.fromRGBO(115, 119, 123, 1.0);

@@ -4,7 +4,11 @@ import '../generated/assets.dart';
 import '../style/colors.dart';
 
 class HomeCard extends StatelessWidget {
-  const HomeCard({Key? key}) : super(key: key);
+  final String title;
+  final String image;
+
+  const HomeCard({Key? key, required this.title, required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class HomeCard extends StatelessWidget {
               color: BUTTONCOLOR.withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -36,14 +40,14 @@ class HomeCard extends StatelessWidget {
             children: [
               const Icon(Icons.arrow_back_ios, size: 35, color: BUTTONCOLOR),
               Text(
-                'Music',
+                title,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: BUTTONCOLOR,
                       fontSize: 45,
                       fontWeight: FontWeight.w900,
                     ),
               ),
-              Image.asset(Assets.iconMusicIconCard),
+              Image.asset(image),
             ],
           ),
         ),
