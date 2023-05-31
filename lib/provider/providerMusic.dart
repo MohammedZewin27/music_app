@@ -77,4 +77,11 @@ playAudioPlayer () {
 
 
 
+  initState() {
+    player = AudioPlayer();
+    setUp();
+  }
+
+
+
 }
