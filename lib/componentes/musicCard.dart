@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../generated/assets.dart';
 import '../style/colors.dart';
 
-class HomeCard extends StatelessWidget {
+class MusicCard extends StatelessWidget {
   final String title;
   final String image;
   final double height;
 
-  const HomeCard({Key? key, required this.title, required this.image,this.height=0.10})
+  const MusicCard({Key? key, required this.title, required this.image,this.height=0.10})
       : super(key: key);
 
   @override
@@ -19,7 +19,7 @@ class HomeCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: LABLECOLOR1,
           image: const DecorationImage(
-              image: AssetImage(Assets.imageBacgroundMusic),
+              image: AssetImage(Assets.imageBacgroundMusic,),
               fit: BoxFit.cover,
               opacity: 0.1),
           borderRadius: BorderRadius.circular(15),
@@ -44,11 +44,22 @@ class HomeCard extends StatelessWidget {
                 title,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: BUTTONCOLOR,
-                      fontSize: 45,
+                      fontSize: 20,
                       fontWeight: FontWeight.w900,
                     ),
               ),
-              Image.asset(image),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  image: DecorationImage(image: NetworkImage(image),
+                    fit: BoxFit.fill,
+                  ),
+                  border: Border.all(color: LABLECOLOR, width: 1),
+                ),
+                width: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.width * 0.1,
+              ),
+
             ],
           ),
         ),

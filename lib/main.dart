@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_music/provider/provider.dart';
 import 'package:new_music/provider/providerDatabase.dart';
+import 'package:new_music/provider/providerMusic.dart';
 import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
 import 'package:new_music/screens/outh/loginScreen/loginScreen.dart';
 import 'package:new_music/screens/outh/signupScreen/signupScreen.dart';
@@ -18,6 +19,9 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => ProviderData()..createDatabase(),
     ),
+    ChangeNotifierProvider(
+      create: (context) => ProviderMusic(),
+    ),
   ], child: const MyApp()));
 }
 
@@ -29,6 +33,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<ProviderData>(context);
+    Provider.of<MyProvider>(context);
+    Provider.of<ProviderMusic>(context);
     return MaterialApp(
       title: 'music app',
       localizationsDelegates: const [

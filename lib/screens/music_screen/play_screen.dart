@@ -1,63 +1,27 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/generated/assets.dart';
+import 'package:new_music/provider/providerMusic.dart';
+import 'package:provider/provider.dart';
 
 import '../../provider/providerDatabase.dart';
 import '../../style/colors.dart';
 
-class Play_Screen extends StatefulWidget {
-  final String path;
-  final String title;
-  final String image;
+class Play_Screen extends StatelessWidget {
+  final int index;
 
-  const Play_Screen({super.key, required this.path, required this.title,required this.image});
+  const Play_Screen({super.key, required this.index});
 
-  @override
-  State<Play_Screen> createState() => _Play_ScreenState();
-}
 
-class _Play_ScreenState extends State<Play_Screen> {
-  late AudioPlayer player;
-  bool isPlay = false;
-  Duration currentPostion = Duration();
-  Duration musicLength = Duration();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    player = AudioPlayer();
-    setUp();
-  }
-
-  setUp() {
-    player.onPositionChanged.listen((event) async {
-      setState(() {
-        setState(() {});
-        currentPostion = event;
-        print('currentPostion =====>$currentPostion');
-      });
-      player.onDurationChanged.listen((Duration event) {
-        setState(() {
-          setState(() {});
-          musicLength = event;
-          print('musicLength =====> $musicLength');
-        });
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    player.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    var providerMusic=Provider.of<ProviderMusic>(context);
+    Provider.of<ProviderData>(context);
+    var videos = ProviderData.videos;
+    providerMusic.player=AudioPlayer();
+    providerMusic.setUp();
+    return  Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -65,7 +29,7 @@ class _Play_ScreenState extends State<Play_Screen> {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-                image: DecorationImage(image: NetworkImage(widget.image),
+                image: DecorationImage(image: NetworkImage(videos[providerMusic.indexMusic].image),
                 fit: BoxFit.fill,
               ),
               border: Border.all(color: LABLECOLOR, width: 5),
@@ -74,7 +38,10 @@ class _Play_ScreenState extends State<Play_Screen> {
             height: MediaQuery.of(context).size.width * 0.50,
           ),
           Text(
-            widget.title,
+            videos[index].title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           Row(
@@ -82,9 +49,9 @@ class _Play_ScreenState extends State<Play_Screen> {
             children: [
               Expanded(
                 child: ProgressBar(
-                  progress: currentPostion,
+                  progress: providerMusic.currentPostion,
                   buffered: const Duration(seconds: 40),
-                  total: musicLength,
+                  total: parseDuration(ProviderData.videos[providerMusic.indexMusic].duration),
                   progressBarColor: Colors.red,
                   baseBarColor: Colors.white.withOpacity(0.24),
                   bufferedBarColor: Colors.white.withOpacity(0.24),
@@ -92,11 +59,11 @@ class _Play_ScreenState extends State<Play_Screen> {
                   barHeight: 3.0,
                   thumbRadius: 5.0,
                   onDragEnd: () {
-                    isPlay = false;
+                    providerMusic.isPlay = false;
                   },
                   timeLabelTextStyle: const TextStyle(fontSize: 15),
                   onSeek: (duration) {
-                    player.seek(duration);
+                    providerMusic.player.seek(duration);
                   },
                 ),
               ),
@@ -107,10 +74,10 @@ class _Play_ScreenState extends State<Play_Screen> {
             children: [
               IconButton(
                 onPressed: () {
-                  if (currentPostion < const Duration(seconds: 10)) {
-                    seekTo(currentPostion.inSeconds);
+                  if (providerMusic.currentPostion < const Duration(seconds: 10)) {
+                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds,);
                   }
-                  seekTo(currentPostion.inSeconds - 10);
+                  providerMusic.seekTo(providerMusic.currentPostion.inSeconds - 10,);
                 },
                 icon: const Icon(
                   Icons.skip_previous_rounded,
@@ -119,12 +86,12 @@ class _Play_ScreenState extends State<Play_Screen> {
               ),
               IconButton(
                 onPressed: () {
-                  isPlay = !isPlay;
-                  setState(() {
-                    isPlay ? playMusic() : pauseMusic();
-                  });
+
+                  providerMusic.changePlayMusic();
+                  providerMusic.isPlay =! providerMusic.isPlay;
+
                 },
-                icon: isPlay
+                icon: providerMusic.isPlay
                     ? const Icon(
                         Icons.pause_circle_outlined,
                         size: 50,
@@ -136,15 +103,13 @@ class _Play_ScreenState extends State<Play_Screen> {
               ),
               IconButton(
                 onPressed: () {
-                  if (currentPostion <
-                      musicLength - const Duration(seconds: 10)) {
-                    seekTo(currentPostion.inSeconds);
-                    setState(() {
-                      isPlay = false;
-                    });
-                    player.stop();
+                  if (providerMusic.currentPostion <
+                      providerMusic.musicLength - const Duration(seconds: 10)) {
+                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds);
+                      providerMusic.isPlay = false;
+                    providerMusic.player.stop();
                   } else {
-                    seekTo(currentPostion.inSeconds + 10);
+                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds + 10);
                   }
                 },
                 icon: const Icon(
@@ -159,15 +124,20 @@ class _Play_ScreenState extends State<Play_Screen> {
     );
   }
 
-  playMusic() async {
-    await player.play(DeviceFileSource(widget.path));
-  }
 
-  pauseMusic() {
-    player.pause();
-  }
 
-  seekTo(int sec) {
-    player.seek(Duration(seconds: sec));
+  Duration parseDuration(String s) {
+    int hours = 0;
+    int minutes = 0;
+    int micros;
+    List<String> parts = s.split(':');
+    if (parts.length > 2) {
+      hours = int.parse(parts[parts.length - 3]);
+    }
+    if (parts.length > 1) {
+      minutes = int.parse(parts[parts.length - 2]);
+    }
+    micros = (double.parse(parts[parts.length - 1]) * 1000000).round();
+    return Duration(hours: hours, minutes: minutes, microseconds: micros);
   }
 }

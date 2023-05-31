@@ -29,7 +29,7 @@ class ProviderData extends ChangeNotifier {
       },
       onOpen: (db) async {
         database = db;
-        readDatabase(database);
+       await readDatabase(database);
         print(allVideos);
       },
     ).then((value) {
@@ -70,8 +70,8 @@ class ProviderData extends ChangeNotifier {
     });
   }
 
-  readDatabase(database) {
-    database?.rawQuery('SELECT * FROM $tableName').then((value) {
+  readDatabase(database)async {
+   await database?.rawQuery('SELECT * FROM $tableName').then((value) {
       allVideos = value;
       videos = allVideos.map((videoMap) => MyVideo(
         videoId: videoMap['id'].toString(),
