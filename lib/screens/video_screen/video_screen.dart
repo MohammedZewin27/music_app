@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:new_music/constant/const.dart';
+import 'package:new_music/model/model_video_youtube.dart';
 import 'package:video_player/video_player.dart';
 
 class Video_Screen extends StatefulWidget {
@@ -46,12 +47,21 @@ bool isPlay=false;
                isPlay=!isPlay;
              });
             },
-                child: AspectRatio(
-                    aspectRatio: controller.value.aspectRatio,
-                    child: VideoPlayer(controller),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: AspectRatio(
+                      aspectRatio: controller.value.aspectRatio,
+                      child: VideoPlayer(controller),
+                    ),
+                ),
               )
-              : Container()
+              : Container(),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: allVideo.length,
+              itemBuilder: (context, index) => Text('d'),),
+          )
         ],
       ),
     );
