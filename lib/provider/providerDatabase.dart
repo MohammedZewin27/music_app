@@ -37,6 +37,7 @@ class ProviderData extends ChangeNotifier {
       onOpen: (db) async {
         database = db;
         await readDatabase(database);
+        await readDatabaseVideo(database);
 
         print(
             'all audio==============================================>  $allAudio');

@@ -144,7 +144,7 @@ class _AudioDownloaderState extends State<AudioDownloader> {
     var youtubeExplode = YoutubeExplode();
     var videoInfo = await youtubeExplode.videos.get(url);
     var videoId = await videoInfo.id;
-    var myVideo = MyVideo(
+    var audio = MyVideo(
         videoId: videoId.value.toString(),
         image: 'https://img.youtube.com/vi/$videoId/0.jpg',
         title: videoInfo.title,
@@ -153,7 +153,7 @@ class _AudioDownloaderState extends State<AudioDownloader> {
         publishDate: videoInfo.publishDate.toString().substring(0, 11),
         filePath: path);
 
-    video.insertDatabase(myVideo: myVideo );
+    video.insertDatabase(myVideo: audio );
   }
 
   getVideoInfo(url) async {

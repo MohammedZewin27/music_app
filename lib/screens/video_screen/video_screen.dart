@@ -18,14 +18,20 @@ class _Video_ScreenState extends State<Video_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = VideoPlayerController.file(File(videos[1].filePath))
+    controller = VideoPlayerController.file(File(videos[2].filePath))
       ..initialize().then((value) {
         setState(() {
 
         });
       });
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+     controller.dispose();
+  }
+bool isPlay=false;
   @override
   Widget build(BuildContext context) {
     print('${videos[1].filePath}');
@@ -33,10 +39,18 @@ class _Video_ScreenState extends State<Video_Screen> {
       body: Column(
         children: [
           controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: controller.value.aspectRatio,
-                  child: VideoPlayer(controller),
-                )
+              ? InkWell(
+            onTap: () {
+             isPlay? controller.pause():controller.play();
+             setState(() {
+               isPlay=!isPlay;
+             });
+            },
+                child: AspectRatio(
+                    aspectRatio: controller.value.aspectRatio,
+                    child: VideoPlayer(controller),
+                  ),
+              )
               : Container()
         ],
       ),
