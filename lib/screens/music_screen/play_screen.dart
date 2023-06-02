@@ -162,12 +162,12 @@ class _Play_ScreenState extends State<Play_Screen> {
             ],
           ),
           Expanded(
-            child: videos.isEmpty
+            child: audios.isEmpty
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : ListView.builder(
-                    itemCount: allVideos.length,
+                    itemCount: allAudio.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
 
@@ -185,8 +185,8 @@ class _Play_ScreenState extends State<Play_Screen> {
                       },
                       child: MusicCard(
                           height: 0.07,
-                          title: videos[index].title.substring(0, 20),
-                          image: videos[index].image),
+                          title: audios[index].title.substring(0, 20),
+                          image: audios[index].image),
                     ),
                   ),
           ),

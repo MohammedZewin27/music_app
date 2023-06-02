@@ -1,9 +1,10 @@
 import '../model/model_video_youtube.dart';
-
-List<Map<String, dynamic>> allVideos = [];
-List<Map<String, dynamic>> allVideos2 = [];
+ const String tableAudio = 'youtubeAudio';
+ const String tableVideo = 'youtubeVideo';
+List<Map<String, dynamic>> allAudio = [];
+List<Map<String, dynamic>> allVideo = [];
+List<MyVideo> audios = [];
 List<MyVideo> videos = [];
-List<MyVideo> videos2 = [];
 
 int indexMusic=0;
 int indexVideo=0;

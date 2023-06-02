@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:new_music/constant/const.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -85,8 +86,10 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
                 : Container(),
             videoId != '' && videoId.length > 10
                 ? ElevatedButton(
-              onPressed: () {
-                downloadVideo(urlTextEditingController);
+              onPressed: () async{
+               await downloadVideo(urlTextEditingController.text).then((value) {
+
+               });
               },
               child: const Text('Download video'),
             )
@@ -206,6 +209,6 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
         publishDate: videoInfo.publishDate.toString().substring(0, 11),
         filePath: '$appDocPath/${videoInfo.id}');
 
-    video.insertDatabase(myVideo: myVideo);
+    video.insertDatabaseVideo(myVideo: myVideo,);
   }
 }
