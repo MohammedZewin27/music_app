@@ -2,7 +2,6 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:new_music/generated/assets.dart';
-
 import '../../provider/providerDatabase.dart';
 import '../../style/colors.dart';
 

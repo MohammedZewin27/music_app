@@ -1,12 +1,45 @@
-import 'package:flutter/material.dart';
-import 'package:new_music/screens/music_screen/downLoad_music_youtube.dart';
+import 'dart:io';
 
-class Video_Screen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:new_music/constant/const.dart';
+import 'package:video_player/video_player.dart';
+
+class Video_Screen extends StatefulWidget {
   const Video_Screen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return  YouTubeAudioDownloader();
+  State<Video_Screen> createState() => _Video_ScreenState();
+}
 
+class _Video_ScreenState extends State<Video_Screen> {
+  late VideoPlayerController controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = VideoPlayerController.file(File(videos[1].filePath))
+      ..initialize().then((value) {
+        setState(() {
+
+        });
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('${videos[1].filePath}');
+    return Scaffold(
+      body: Column(
+        children: [
+          controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: controller.value.aspectRatio,
+                  child: VideoPlayer(controller),
+                )
+              : Container()
+        ],
+      ),
+    );
   }
 }

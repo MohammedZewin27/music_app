@@ -3,24 +3,65 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:provider/provider.dart';
-
-import '../../provider/providerDatabase.dart';
+import '../../componentes/musicCard.dart';
+import '../../constant/const.dart';
+import '../../model/model_video_youtube.dart';
 import '../../style/colors.dart';
 
-class Play_Screen extends StatelessWidget {
-  final int index;
+class Play_Screen extends StatefulWidget {
+  final MyVideo video;
 
-  const Play_Screen({super.key, required this.index});
+  const Play_Screen({
+    super.key,
+    required this.video,
+  });
 
+  @override
+  State<Play_Screen> createState() => _Play_ScreenState();
+}
 
+class _Play_ScreenState extends State<Play_Screen> {
+  late AudioPlayer player;
+
+  Duration currentPostion = Duration();
+  Duration musicLength = Duration();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    player = AudioPlayer();
+    setUp();
+  }
+
+  setUp() {
+    player.onPositionChanged.listen((event) async {
+      setState(() {
+        setState(() {});
+        currentPostion = event;
+        print('currentPostion =====>$currentPostion');
+      });
+      player.onDurationChanged.listen((Duration event) {
+        setState(() {
+          setState(() {});
+          musicLength = event;
+          print('musicLength =====> $musicLength');
+        });
+      });
+    });
+  }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   player.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    var providerMusic=Provider.of<ProviderMusic>(context);
-    Provider.of<ProviderData>(context);
-    var videos = ProviderData.videos;
-    providerMusic.initState();
-    return  Padding(
+    var providerMusic = Provider.of<ProviderMusic>(context);
+    return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,29 +69,29 @@ class Play_Screen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-                image: DecorationImage(image: NetworkImage(videos[providerMusic.indexMusic].image),
+              image: DecorationImage(
+                image: NetworkImage(widget.video.image),
                 fit: BoxFit.fill,
               ),
               border: Border.all(color: LABLECOLOR, width: 5),
             ),
-            width: MediaQuery.of(context).size.width * 0.50,
-            height: MediaQuery.of(context).size.width * 0.50,
+            width: MediaQuery.of(context).size.width * 0.40,
+            height: MediaQuery.of(context).size.width * 0.40,
           ),
+          SizedBox(height: 5,),
           Text(
-            videos[index].title,
+            widget.video.title,
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 20),
             maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineLarge,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
                 child: ProgressBar(
-                  progress: providerMusic.currentPostion,
+                  progress: currentPostion,
                   buffered: const Duration(seconds: 40),
-                  total: parseDuration(ProviderData.videos[providerMusic.indexMusic].duration),
+                  total: parseDuration(widget.video.duration),
                   progressBarColor: Colors.red,
                   baseBarColor: Colors.white.withOpacity(0.24),
                   bufferedBarColor: Colors.white.withOpacity(0.24),
@@ -62,7 +103,7 @@ class Play_Screen extends StatelessWidget {
                   },
                   timeLabelTextStyle: const TextStyle(fontSize: 15),
                   onSeek: (duration) {
-                    providerMusic.player.seek(duration);
+                    player.seek(duration);
                   },
                 ),
               ),
@@ -73,57 +114,102 @@ class Play_Screen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  if (providerMusic.currentPostion < const Duration(seconds: 10)) {
-                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds,);
+                  if (currentPostion < const Duration(seconds: 10)) {
+                    seekTo(currentPostion.inSeconds);
                   }
-                  providerMusic.seekTo(providerMusic.currentPostion.inSeconds - 10,);
+                  seekTo(currentPostion.inSeconds - 10);
                 },
                 icon: const Icon(
                   Icons.skip_previous_rounded,
-                  size: 50,
+                  size: 30,
                 ),
               ),
               IconButton(
                 onPressed: () {
-
-                  providerMusic.changePlayMusic();
-                  providerMusic.isPlay =! providerMusic.isPlay;
-
+                  providerMusic.isPlay = !providerMusic.isPlay;
+                  setState(() {
+                    providerMusic.isPlay ? playMusic() : pauseMusic();
+                  });
                 },
                 icon: providerMusic.isPlay
                     ? const Icon(
                         Icons.pause_circle_outlined,
-                        size: 50,
+                        size: 40,
                       )
                     : const Icon(
                         Icons.play_circle_fill_rounded,
-                        size: 50,
+                        size: 40,
                       ),
               ),
               IconButton(
                 onPressed: () {
-                  if (providerMusic.currentPostion <
-                      providerMusic.musicLength - const Duration(seconds: 10)) {
-                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds);
-                      providerMusic.isPlay = false;
-                    providerMusic.player.stop();
+                  if (currentPostion <
+                      musicLength - const Duration(seconds: 10)) {
+                    seekTo(currentPostion.inSeconds);
+
+                      // providerMusic.isPlay = false;
+
+                    player.stop();
                   } else {
-                    providerMusic.seekTo(providerMusic.currentPostion.inSeconds + 10);
+                    seekTo(currentPostion.inSeconds + 10);
                   }
                 },
                 icon: const Icon(
                   Icons.skip_next,
-                  size: 50,
+                  size: 30,
                 ),
               ),
             ],
-          )
+          ),
+          Expanded(
+            child: videos.isEmpty
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : ListView.builder(
+                    itemCount: allVideos.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+
+                        providerMusic.changeIndexMusic(index);
+                        if (providerMusic.isPlay) {
+                          stopPlay();
+                            providerMusic.isPlay = false;
+                          print("INDEX ================> ${providerMusic.isPlay}");
+
+                        } else {
+                          playMusic();
+                            providerMusic.isPlay = true;
+                          print("INDEX ================> $index");
+                        }
+                      },
+                      child: MusicCard(
+                          height: 0.07,
+                          title: videos[index].title.substring(0, 20),
+                          image: videos[index].image),
+                    ),
+                  ),
+          ),
         ],
       ),
     );
   }
 
+  playMusic() async {
+    await player.play(DeviceFileSource(widget.video.filePath));
+  }
 
+  pauseMusic() {
+    player.pause();
+  }
+
+  seekTo(int sec) {
+    player.seek(Duration(seconds: sec));
+  }
+
+  stopPlay() {
+    player.stop();
+  }
 
   Duration parseDuration(String s) {
     int hours = 0;

@@ -4,10 +4,12 @@ import 'package:sqflite/sqflite.dart';
 import '../constant/const.dart';
 import '../model/model_video_youtube.dart';
 
-class ProviderData extends ChangeNotifier {
+
+
+  class ProviderVideo extends ChangeNotifier {
 
   Database? database;
-  static const String tableName = 'youtubeVideo';
+  static const String tableName = 'youtubeVideo10';
 
   createDatabase() {
     openDatabase(
@@ -28,8 +30,8 @@ class ProviderData extends ChangeNotifier {
       },
       onOpen: (db) async {
         database = db;
-        await readDatabase(database);
-        print(allVideos);
+        readDatabase(database);
+        print(allVideos2);
       },
     ).then((value) {
       database = value;
@@ -39,7 +41,8 @@ class ProviderData extends ChangeNotifier {
 
   insertDatabase({required MyVideo myVideo}) async {
     await database?.transaction((txn) {
-      return txn.rawInsert(
+      return txn
+          .rawInsert(
         '''INSERT INTO $tableName(
            videoTitle,
            videoUrl,
@@ -57,29 +60,30 @@ class ProviderData extends ChangeNotifier {
            "${myVideo.image}",
            "${myVideo.filePath}"
            )''',
-      ).then((value) {
+      )
+          .then((value) {
         print("$value inserted successfully");
         readDatabase(database);
-      }).catchError((onError) {
+      })
+          .catchError((onError) {
         print('error insert =====');
       });
     });
   }
 
-  readDatabase(database) async {
-    await database?.rawQuery('SELECT * FROM $tableName').then((value) {
+  readDatabase(database) {
+    database?.rawQuery('SELECT * FROM $tableName').then((value) {
       allVideos = value;
-      videos = allVideos
-          .map((videoMap) => MyVideo(
-                videoId: videoMap['id'].toString(),
-                title: videoMap['videoTitle'],
-                thumbnailUrl: videoMap['videoUrl'],
-                duration: videoMap['videoDuration'],
-                publishDate: videoMap['videoPublishDate'],
-                image: videoMap['videoImage'],
-                filePath: videoMap['filePath'],
-              ))
-          .toList();
+      videos = allVideos.map((videoMap) => MyVideo(
+        videoId: videoMap['id'].toString(),
+        title: videoMap['videoTitle'],
+        thumbnailUrl: videoMap['videoUrl'],
+        duration: videoMap['videoDuration'],
+        publishDate: videoMap['videoPublishDate'],
+        image: videoMap['videoImage'],
+        filePath: videoMap['filePath'],
+
+      )).toList();
       print(allVideos);
       notifyListeners();
     });
@@ -95,20 +99,8 @@ class ProviderData extends ChangeNotifier {
       print('error delete ===== $onError');
     });
   }
-
-  void loadingListVideos( List<MyVideo> videos) async{
-    videos =   allVideos
-        .map((videoMap) => MyVideo(
-              videoId: videoMap['id'].toString(),
-              title: videoMap['videoTitle'],
-              thumbnailUrl: videoMap['videoUrl'],
-              duration: videoMap['videoDuration'],
-              publishDate: videoMap['videoPublishDate'],
-              image: videoMap['videoImage'],
-              filePath: videoMap['filePath'],
-            ))
-        .toList();
-    print('loadingVideo  ===>$videos');
-    notifyListeners();
-  }
 }
+
+
+
+
