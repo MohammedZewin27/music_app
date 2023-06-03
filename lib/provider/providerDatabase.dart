@@ -122,7 +122,7 @@ class ProviderData extends ChangeNotifier {
                 filePath: videoMap['filePath'],
               ))
           .toList();
-      print(allAudio);
+      print(audios);
       notifyListeners();
     });
   }
@@ -141,7 +141,7 @@ class ProviderData extends ChangeNotifier {
                 filePath: videoMap['filePath'],
               ))
           .toList();
-      print(allVideo);
+      print(videos);
       notifyListeners();
     });
   }
