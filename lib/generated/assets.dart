@@ -4,6 +4,7 @@ class Assets {
 
   static const String fontsCherryCreamSodaRegular = 'assets/fonts/CherryCreamSoda-Regular.ttf';
   static const String fontsLilitaOneRegular = 'assets/fonts/LilitaOne-Regular.ttf';
+  static const String fontsReemKufiVariableFontWght = 'assets/fonts/ReemKufi-VariableFont_wght.ttf';
   static const String iconLeading = 'assets/icon/leading.png';
   static const String iconMusic = 'assets/icon/music.png';
   static const String iconMusicBack = 'assets/icon/musicBack.png';
@@ -13,8 +14,6 @@ class Assets {
   static const String iconVideoIcon = 'assets/icon/videoIcon.png';
   static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
-  static const String imageLogo = 'assets/image/Logo.png';
   static const String imageMusic = 'assets/image/Music.jpg';
-  static const String imageSplash = 'assets/image/splash.png';
 
 }
