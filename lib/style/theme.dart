@@ -14,6 +14,9 @@ class MyTheme {
       iconTheme: const IconThemeData(color: LABLECOLOR),
       useMaterial3: true,
       appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.white
+        ),
         systemOverlayStyle: SystemUiOverlayStyle(
           systemNavigationBarColor: PREMIUMCOLOR,
           statusBarColor: PREMIUMCOLOR,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,11 @@ class LayoutScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Image.asset(Assets.iconLeading, color: Colors.white),
         title: Text(provider.textTitle[provider.indexScreen],),
+        actions: [
+          IconButton(onPressed: ()async{
+            await FirebaseAuth.instance.signOut();
+          }, icon: const Icon(Icons.exit_to_app)),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: provider.indexScreen,
