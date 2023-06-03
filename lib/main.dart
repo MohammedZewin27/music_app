@@ -1,17 +1,37 @@
+import 'dart:ui';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:new_music/provider/provider.dart';
 import 'package:new_music/provider/providerDatabase.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
-import 'package:new_music/screens/outh/loginScreen/loginScreen.dart';
-import 'package:new_music/screens/outh/signupScreen/signupScreen.dart';
+
 import 'package:new_music/screens/splash_screen/SplashScreen.dart';
 import 'package:new_music/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'outh/loginScreen/loginScreen.dart';
+import 'outh/signupScreen/signupScreen.dart';
+
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => MyProvider(),

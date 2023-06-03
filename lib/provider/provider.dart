@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:new_music/screens/home_screen/home_screen.dart';
 
@@ -31,7 +32,17 @@ notifyListeners();
   }
 
 
-
+  var myUser;
+  User? firebaseUser;
+  MyProvider(){
+    firebaseUser=FirebaseAuth.instance.currentUser;
+    if(firebaseUser!=null){
+      initMyUser();
+    }
+  }
+  void initMyUser()async{
+    myUser= firebaseUser?.uid??"";
+  }
 
 
 }

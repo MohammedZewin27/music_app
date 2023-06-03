@@ -1,36 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:new_music/componentes/defaultButton.dart';
+import 'package:new_music/componentes/defaultTextForm.dart';
 import 'package:new_music/generated/assets.dart';
 
-import '../../../componentes/defaultButton.dart';
-import '../../../componentes/defaultTextForm.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:new_music/loding.dart';
+import 'package:new_music/style/colors.dart';
 
-import '../../../style/colors.dart';
-import '../loginScreen/loginScreen.dart';
+import '../../firebaseError.dart';
+import '../../screens/LayoutScreen/LayoutScreen.dart';
+import '../signupScreen/signupScreen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  SignUpScreen({Key? key}) : super(key: key);
-  static const String routeName = 'SignUpScreen';
-
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController usernameController = TextEditingController();
-
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
+  static const String routeName = 'loginScreen';
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
-  final formKey = GlobalKey<FormState>();
-
-   bool isPassword = true;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    var appLocal=AppLocalizations.of(context)!;
+    var appLocal = AppLocalizations.of(context)!;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
@@ -51,31 +42,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        appLocal.singUp,
-
+                        appLocal.singIn,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(
                         height: 6,
                       ),
                       Text(
-                        appLocal.singUpText,
+                        appLocal.singInText,
+                        textAlign: TextAlign.start,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .09,
-                      ),
-                      DefaultTextForm(
-                          hintText: appLocal.username,
-                          controller: usernameController,
-                          validator: (value) {
-                            if (value!.isEmpty || value == '') {
-                              return appLocal.validUsername;
-                            }
-                            return null;
-                          }),
-                      const SizedBox(
-                        height: 10,
                       ),
                       DefaultTextForm(
                           hintText: appLocal.email,
@@ -99,27 +78,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       DefaultTextForm(
                           hintText: appLocal.password,
                           controller: passwordController,
-                          isPassword: isPassword,
-                          suffixIcon: isPassword
-                              ? Icons.remove_red_eye
-                              : Icons.remove_red_eye_outlined,
-                          functionIcon: () {
-                            isPassword = !isPassword;
-                            setState(() {});
-                          },
                           validator: (value) {
-                            if (value!.isEmpty || value == ''||value.length<6) {
+                            if (value!.isEmpty ||
+                                value == '' ||
+                                value.length < 6) {
                               return appLocal.validPassword;
                             }
                             return null;
                           }),
-                      const SizedBox(
-                        height: 15,
+                      Row(
+                        children: [
+                          const Expanded(child: SizedBox()),
+                          TextButton(
+                            onPressed: () {},
+                            child: Text(appLocal.forgot,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: LABLECOLOR)),
+                          ),
+                        ],
                       ),
-                      DefaultElevatedButton(
-                          text: appLocal.singUp,
+                      DefaultButton(
+                          text: appLocal.singIn,
                           onPressed: () async {
-                            await goToHomePage();
+                            await goToHomeScreen(context);
                           }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -127,9 +110,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
-                                  context, LoginScreen.routeName);
+                                  context, SignUpScreen.routeName);
                             },
-                            child: Text(appLocal.haveAccount,
+                            child: Text(appLocal.dontHaveAccount,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -140,8 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                 ),
-              ),
-
+              )
             ],
           ),
         ),
@@ -149,9 +131,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  goToHomePage() async {
+  goToHomeScreen(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-
+      try {
+        Loading.showLoading(context: context);
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: emailController.text, password: passwordController.text);
+         Loading.hideLoading(context);
+        Loading.showMessage(FirebaseError.loginSuccessfully, context);
+        Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
+      } on FirebaseAuthException catch (e) {
+        Loading.hideLoading(context);
+        Loading.showMessage(FirebaseError.wrongEmailOrPassword,context);
+      }
     }
   }
 }
