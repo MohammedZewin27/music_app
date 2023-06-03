@@ -17,12 +17,13 @@ class _Video_ScreenState extends State<Video_Screen> {
   late VideoPlayerController controller;
 
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    controller = VideoPlayerController.file(File(videos[indexVideo].filePath))
-      ..initialize().then((value) {
-        setState(() {});
-      });
+    controller =
+         VideoPlayerController.file(File(videos[indexVideo].filePath))
+          ..initialize().then((value) {
+            setState(() {});
+          });
   }
 
   @override
@@ -31,7 +32,7 @@ class _Video_ScreenState extends State<Video_Screen> {
     controller.dispose();
   }
 
-  bool isPlay = false;
+   bool isPlay = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,22 +65,23 @@ class _Video_ScreenState extends State<Video_Screen> {
             child: ListView.builder(
               itemCount: videos.length,
               itemBuilder: (context, index) => GestureDetector(
-                onTap: () {
-                  controller =
-                      VideoPlayerController.file(File(videos[index].filePath))
-                        ..initialize().then((value) {
-                          setState(() {});
-                        });
+                onTap: ()  {
+                  controller =  VideoPlayerController.file(
+                      File(videos[index].filePath))
+                    ..initialize().then((value) {
+                      setState(() {});
+                    });
                   controller.play();
                   setState(() {
-                    indexVideo = index;
                     isPlay = !isPlay;
                   });
                 },
                 child: VideoCard(
-                    image: videos[index].image,
-                    duration: videos[index].duration,
-                    title: videos[index].title),
+                  image: videos[index].image,
+                  duration: videos[index].duration,
+                  title: videos[index].title,
+
+                ),
               ),
             ),
           )

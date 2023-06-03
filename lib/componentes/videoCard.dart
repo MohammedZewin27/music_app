@@ -7,11 +7,15 @@ class VideoCard extends StatelessWidget {
   final String duration;
   final String title;
 
+
   const VideoCard(
       {super.key,
       required this.image,
       required this.duration,
-      required this.title});
+      required this.title,
+
+
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +30,15 @@ class VideoCard extends StatelessWidget {
           child: Expanded(
             child: Row(
               children: [
-                Image(
+               image.length>10? Image(
                   image: NetworkImage(image),
                   height: 100,
                   width: 100,
                   fit: BoxFit.fill,
-                ),
+                ):Container(
+                 height: 100,
+                 width: 100,
+               ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -46,7 +53,7 @@ class VideoCard extends StatelessWidget {
                       // const Text('NAME'),
                       Row(
                         children: [
-                          const Icon(Icons.play_arrow, size: 19),
+                        const Icon(Icons.play_arrow, size: 19),
                           const SizedBox(
                             width: 10,
                           ),
