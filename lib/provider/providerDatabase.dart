@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -6,6 +8,7 @@ import '../model/model_video_youtube.dart';
 
 class ProviderData extends ChangeNotifier {
   Database? database;
+
 
   createDatabase() {
     openDatabase(
@@ -146,7 +149,7 @@ class ProviderData extends ChangeNotifier {
     });
   }
 
-  deleteRowInDatabase({required int id}) async {
+  deleteRowInDatabaseAudio({required int id}) async {
     await database
         ?.rawDelete('DELETE FROM $tableAudio WHERE id = $id')
         .then((value) {
@@ -166,6 +169,25 @@ class ProviderData extends ChangeNotifier {
     }).catchError((onError) {
       print('error delete ===== $onError');
     });
+    notifyListeners();
   }
 
+
+  Future<void> deleteFile(String filePath) async {
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        await file.delete();
+        print('تم حذف الملف بنجاح');
+        notifyListeners();
+      } else {
+        print('الملف غير موجود');
+        notifyListeners();
+      }
+    } catch (e) {
+      print('حدث خطأ أثناء حذف الملف: $e');
+      notifyListeners();
+    }
+    notifyListeners();
+  }
 }

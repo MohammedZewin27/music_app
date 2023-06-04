@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:new_music/screens/home_screen/home_screen.dart';
@@ -13,7 +15,7 @@ class MyProvider extends ChangeNotifier{
   List<Widget> screens=[
     const Home_Screen(),
     Music_Screen(),
-     Video_Screen(),
+     VideoScreen (),
      Setting_Screen()
   ];
 
@@ -43,6 +45,30 @@ notifyListeners();
   void initMyUser()async{
     myUser= firebaseUser?.uid??"";
   }
+
+
+  Future<void> deleteFile(String filePath) async {
+    try {
+      final file = File(filePath);
+      if (await file.exists()) {
+        await file.delete();
+        print('تم حذف الملف بنجاح');
+      } else {
+        print('الملف غير موجود');
+      }
+    } catch (e) {
+      print('حدث خطأ أثناء حذف الملف: $e');
+    }
+  }
+
+
+  final List<String> items = [
+    'Delete',
+    'Item2',
+    'Item3',
+
+  ];
+  String? selectedValue;
 
 
 }

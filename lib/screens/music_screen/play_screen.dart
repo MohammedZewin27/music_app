@@ -61,6 +61,7 @@ class _Play_ScreenState extends State<Play_Screen> {
   @override
   Widget build(BuildContext context) {
     var providerMusic = Provider.of<ProviderMusic>(context);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
