@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,24 +9,14 @@ import 'package:flutter/material.dart';
 
 import 'package:new_music/provider/providerDatabase.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 import '../constant/const.dart';
 
 
 
-class ProviderMusic extends ChangeNotifier{
-
-
-  int indexMusic=0;
-
-
-  changeIndexMusic(int index){
-    indexMusic=index;
-    notifyListeners();
-  }
-  late AudioPlayer player;
-
-  bool isPlay=false;
+class ProviderVideo extends ChangeNotifier{
+  int indexVideo=0;
 
 
 
