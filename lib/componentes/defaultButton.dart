@@ -4,12 +4,17 @@ import '../style/colors.dart';
 
 /// MaterialButton
 class DefaultButton extends StatelessWidget {
-
   final String text;
- final void Function()? onPressed;
- final Color? color;
+  final void Function()? onPressed;
+  final Color? color;
+  final double? width;
 
-   const DefaultButton({super.key, required this.text, required this.onPressed,this.color=BUTTONCOLOR});
+  const DefaultButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      this.color = BUTTONCOLOR,
+      this.width = double.infinity});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class DefaultButton extends StatelessWidget {
       onPressed: onPressed,
       color: color,
       height: 40,
-      minWidth: double.infinity,
+      minWidth: width,
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyMedium,
@@ -26,16 +31,14 @@ class DefaultButton extends StatelessWidget {
   }
 }
 
-
-
 /// ElevatedButton
 class DefaultElevatedButton extends StatelessWidget {
-
   final String text;
- final void Function()? onPressed;
- final double? elevation;
+  final void Function()? onPressed;
+  final double? elevation;
 
-  const DefaultElevatedButton({super.key, required this.text, required this.onPressed,this.elevation});
+  const DefaultElevatedButton(
+      {super.key, required this.text, required this.onPressed, this.elevation});
 
   @override
   Widget build(BuildContext context) {

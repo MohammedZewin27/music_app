@@ -37,9 +37,10 @@ class VideoCard extends StatelessWidget {
               children: [
                 SlidableAction(
                   onPressed: (context) {
+
                     proVideo.deleteRowInDatabaseVideo(
                         id: allVideo[index]['id']);
-                    proVideo.deleteFile(videos[index].filePath);
+                    proVideo.deleteFile(allVideo[index]['filePath']);
                   },
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
@@ -58,7 +59,7 @@ class VideoCard extends StatelessWidget {
                   height: 100,
                   width: 100,
                   fit: BoxFit.fill,
-                ):Container(
+                ):const SizedBox(
                  height: 100,
                  width: 100,
                ),
@@ -72,8 +73,6 @@ class VideoCard extends StatelessWidget {
                         maxLines: 2,
                         textAlign: TextAlign.end,
                       ),
-                      // SizedBox(height: MediaQuery.of(context).size.height*0.05,),
-                      // const Text('NAME'),
                       Row(
                         children: [
                         const Icon(Icons.play_arrow, size: 19),

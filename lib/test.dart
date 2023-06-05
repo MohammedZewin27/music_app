@@ -1,111 +1,62 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
-class AASADSK extends StatelessWidget {
+import 'constant/const.dart';
 
-static const String routeName='s';
+class FullScreenVideoPlayer extends StatefulWidget {
+  final  String? videoUrl;
+static const String routeName='full';
+   const FullScreenVideoPlayer({super.key,  this.videoUrl});
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'DropdownButton2 Demo',
-      home: MyHomePage(),
-    );
+  _FullScreenVideoPlayerState createState() => _FullScreenVideoPlayerState();
+}
+
+class _FullScreenVideoPlayerState extends State<FullScreenVideoPlayer> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.file(File(videos[indexVideo].filePath??''))
+      ..initialize().then((_) {
+        setState(() {});
+      });
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
-  String? selectedValue;
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: DropdownButtonHideUnderline(
-
-          child: DropdownButton2(
-     customButton: Icon(Icons.more_vert),
-
-            items: items
-                .map((item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ))
-                .toList(),
-            value: selectedValue,
-            onChanged: (value) {
-              setState(() {
-                // selectedValue = value as String;
-              });
-            },
-            buttonStyleData: ButtonStyleData(
-              height: 50,
-              width: 160,
-              padding: const EdgeInsets.only(left: 14, right: 14),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: Colors.black26,
-                ),
-                color: Colors.redAccent,
-              ),
-              elevation: 2,
-            ),
-            iconStyleData: const IconStyleData(
-              icon: Icon(
-                Icons.arrow_forward_ios_outlined,
-              ),
-              iconSize: 14,
-              iconEnabledColor: Colors.yellow,
-              iconDisabledColor: Colors.grey,
-            ),
-            dropdownStyleData: DropdownStyleData(
-              maxHeight: 200,
-              width: 200,
-              padding: null,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: Colors.redAccent,
-              ),
-              elevation: 8,
-              offset: const Offset(-20, 0),
-              scrollbarTheme: ScrollbarThemeData(
-                radius: const Radius.circular(40),
-                thickness: MaterialStateProperty.all<double>(6),
-                thumbVisibility: MaterialStateProperty.all<bool>(true),
-              ),
-            ),
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40,
-              padding: EdgeInsets.only(left: 14, right: 14),
-            ),
-          ),
+    if (_controller.value.isInitialized) {
+      return Scaffold(
+        body: OrientationBuilder(
+          builder: (context, orientation) {
+            if(orientation==Orientation.portrait){
+              AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              );
+            }
+            return AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            );
+          },
         ),
-      ),
-    );
+      );
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
+
+
