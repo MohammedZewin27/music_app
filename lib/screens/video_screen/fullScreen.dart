@@ -35,7 +35,7 @@ class _FullScreenState extends State<FullScreen> {
         File(videos[indexVideo ].filePath),
       ),
       onVideoEnd: () {
-        dataManager.skipToNextVideo(Duration(seconds: 5));
+        dataManager.skipToNextVideo(const Duration(seconds: 2));
       },
     );
 
@@ -48,11 +48,11 @@ class _FullScreenState extends State<FullScreen> {
     super.dispose();
   }
 
-  skipToVideo(String url) {
-    flickManager.handleChangeVideo(
-      VideoPlayerController.file(File(videos[indexVideo + 1].filePath)),
-    );
-  }
+  // skipToVideo(String url) {
+  //   flickManager.handleChangeVideo(
+  //     VideoPlayerController.file(File(videos[indexVideo + 1].filePath)),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
