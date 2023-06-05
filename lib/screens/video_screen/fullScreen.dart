@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
 
-import 'constant/const.dart';
+import '../../constant/const.dart';
 
-class SamplePlayer extends StatefulWidget {
+class FullScreen extends StatefulWidget {
   static const String routeName = 'full';
 
-  const SamplePlayer({super.key});
+  const FullScreen({super.key});
 
   @override
-  _SamplePlayerState createState() => _SamplePlayerState();
+  _FullScreenState createState() => _FullScreenState();
 }
 
-class _SamplePlayerState extends State<SamplePlayer> {
+class _FullScreenState extends State<FullScreen> {
   late FlickManager flickManager;
 
   @override
@@ -35,8 +35,8 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FlickVideoPlayer(flickManager: flickManager),
+    return FlickVideoPlayer(
+      flickManager: flickManager,
     );
   }
 }

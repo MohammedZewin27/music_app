@@ -14,7 +14,7 @@ import '../../provider/provider.dart';
 import '../../provider/providerMusic.dart';
 import '../../style/colors.dart';
 import '../../test.dart';
-import '../../test2.dart';
+import 'fullScreen.dart';
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({Key? key}) : super(key: key);
@@ -87,7 +87,7 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                   IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, SamplePlayer.routeName);
+                        Navigator.pushNamed(context, FullScreen.routeName);
                       },
                       icon: const Icon(
                         Icons.fullscreen,

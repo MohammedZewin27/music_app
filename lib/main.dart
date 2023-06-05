@@ -14,7 +14,7 @@ import 'package:new_music/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:new_music/test.dart';
-import 'package:new_music/test2.dart';
+import 'package:new_music/screens/video_screen/fullScreen.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         LayoutScreen.routeName: (context) => const LayoutScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         SignUpScreen.routeName: (context) => SignUpScreen(),
-        SamplePlayer.routeName: (context) => SamplePlayer(),
+        FullScreen.routeName: (context) => FullScreen(),
 
 
       },
