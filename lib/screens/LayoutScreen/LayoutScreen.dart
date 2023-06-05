@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:new_music/componentes/openYouTubeScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
@@ -24,8 +25,13 @@ class LayoutScreen extends StatelessWidget {
         title: Text(provider.textTitle[provider.indexScreen],),
         actions: [
           IconButton(onPressed: ()async{
-            await FirebaseAuth.instance.signOut();
-          }, icon: const Icon(Icons.exit_to_app)),
+            if(provider.indexScreen==0) await FirebaseAuth.instance.signOut();
+            if(provider.indexScreen==1) await FirebaseAuth.instance.signOut();
+            if(provider.indexScreen==2) await FirebaseAuth.instance.signOut();
+            if(provider.indexScreen==3) {
+              await Navigator.pushNamed(context, OpenYouTube.routeName);
+            }
+          }, icon: provider.icons[provider.indexScreen]),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

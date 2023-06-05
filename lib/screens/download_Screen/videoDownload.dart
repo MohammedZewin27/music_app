@@ -32,6 +32,8 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
 
   double progress = 0.0;
   var pathFileInMyPhone;
+  late double re;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,11 +52,11 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
                     .bodyLarge
                     ?.copyWith(fontSize: 18, color: PREMIUMCOLOR),
                 decoration: InputDecoration(
-                  hintText: 'YouTube Video URL',
+                  hintText: 'YouTube Video URL Here',
                   hintStyle: Theme.of(context)
                       .textTheme
                       .bodyLarge
-                      ?.copyWith(fontSize: 25, color: PREMIUMCOLOR),
+                      ?.copyWith(fontSize: 20, color: PREMIUMCOLOR),
                 ),
               ),
             ),
@@ -86,23 +88,33 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
                 : Container(),
             videoId != '' && videoId.length > 10
                 ? ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: PREMIUMCOLOR
+              ),
               onPressed: () async{
                await downloadVideo(urlTextEditingController.text).then((value) {
-
+                 urlTextEditingController.clear();
                });
               },
-              child: const Text('Download video'),
+              child: const Text('Download video',style: TextStyle(color: Colors.white),),
             )
                 : Container(),
             const SizedBox(height: 20.0),
             downloading
                 ? Padding(
               padding: const EdgeInsets.all(8.0),
-              child: LinearProgressIndicator(
-                value: progress,
-                backgroundColor: Colors.blueAccent,
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                    Colors.greenAccent),
+              child: Column(
+                children: [
+                  Text('${(progress*100).toStringAsFixed(0)}%'??'',style: const TextStyle(
+                    color: PREMIUMCOLOR,
+                  ),),
+                  LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Colors.blueAccent,
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                        Colors.greenAccent),
+                  ),
+                ],
               ),
             )
                 : Container(),
@@ -168,13 +180,11 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
           count += data.length;
           // Calculate the current progress.
           double val = ((count / size));
-          var msg =
-              '${videoDownload.title} Downloaded to $appDocPath/${videoDownload.id}';
-
           for (val; val == 1.0; val++) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content:
-                Text(msg, style: const TextStyle(color: Colors.green))));
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                backgroundColor: PREMIUMCOLOR,
+                content: Text('Download complete',
+                    style: TextStyle(color: Colors.white, fontSize: 25))));
           }
           setState(() => progress = val);
 
@@ -184,8 +194,9 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
         await insertVideoInDatabase(urlTextEditingController.text);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.red ,
             content: Text('add youtube video url first!',
-                style: TextStyle(color: Colors.red))));
+                style: TextStyle(color: Colors.white))));
         setState(() => downloading = false);
       }
     } else {

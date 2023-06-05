@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -13,12 +11,13 @@ import 'package:video_player/video_player.dart';
 
 import '../constant/const.dart';
 
+class ProviderVideo extends ChangeNotifier {
+  int indexVideo = 0;
 
+  late Duration positionNow=Duration();
 
-class ProviderVideo extends ChangeNotifier{
-  int indexVideo=0;
-
-
-
-
+  void videoPosition(Duration duration) {
+    positionNow = duration;
+    notifyListeners();
+  }
 }

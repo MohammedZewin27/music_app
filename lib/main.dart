@@ -14,8 +14,10 @@ import 'package:new_music/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:new_music/test.dart';
+import 'package:new_music/screens/video_screen/fullScreen.dart';
 import 'package:provider/provider.dart';
 
+import 'componentes/openYouTubeScreen.dart';
 import 'firebase_options.dart';
 import 'outh/loginScreen/loginScreen.dart';
 import 'outh/signupScreen/signupScreen.dart';
@@ -26,13 +28,13 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+  // FlutterError.onError = (errorDetails) {
+  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  // };
+  // PlatformDispatcher.instance.onError = (error, stack) {
+  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  //   return true;
+  // };
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -83,6 +85,9 @@ class MyApp extends StatelessWidget {
         LayoutScreen.routeName: (context) => const LayoutScreen(),
         LoginScreen.routeName: (context) => LoginScreen(),
         SignUpScreen.routeName: (context) => SignUpScreen(),
+        FullScreen.routeName: (context) => FullScreen(),
+        OpenYouTube.routeName: (context) => OpenYouTube(),
+
 
       },
     );

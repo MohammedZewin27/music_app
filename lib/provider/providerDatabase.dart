@@ -165,7 +165,7 @@ class ProviderData extends ChangeNotifier {
         ?.rawDelete('DELETE FROM $tableVideo WHERE id = $id')
         .then((value) {
       print("$value delete successfully");
-      readDatabase(database);
+      readDatabaseVideo(database);
     }).catchError((onError) {
       print('error delete ===== $onError');
     });
