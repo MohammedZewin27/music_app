@@ -14,6 +14,7 @@ import '../../provider/provider.dart';
 import '../../provider/providerMusic.dart';
 import '../../style/colors.dart';
 import '../../test.dart';
+import '../../test2.dart';
 
 class VideoScreen extends StatefulWidget {
   const VideoScreen({Key? key}) : super(key: key);
@@ -77,9 +78,22 @@ class _VideoScreenState extends State<VideoScreen> {
             },
             child: Padding(
               padding: const EdgeInsets.all(3.0),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: VideoPlayer(controller),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: VideoPlayer(controller),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, SamplePlayer.routeName);
+                      },
+                      icon: const Icon(
+                        Icons.fullscreen,
+                        color: Colors.white,
+                      )),
+                ],
               ),
             ),
           ),
@@ -90,11 +104,6 @@ class _VideoScreenState extends State<VideoScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 3),
             child: Column(
               children: [
-                IconButton(onPressed: (){
-
-                  Navigator.pushNamed(context, FullScreenVideoPlayer.routeName);
-
-                },icon: Icon(Icons.add)),
                 VideoProgressIndicator(
                   controller,
                   allowScrubbing: true,
@@ -147,30 +156,30 @@ class _VideoScreenState extends State<VideoScreen> {
                 ),
               )
             : Center(
-            child: Column(
-              children: [
-                const Text(
-                  'download video',
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                FloatingActionButton(
-                  onPressed: () {
-                    var pro = Provider.of<MyProvider>(context, listen: false);
-                    pro.changeCurrent(3);
-                    pro.screens[pro.indexScreen];
-                  },
-                  backgroundColor: BUTTONCOLOR3,
-                  child: const Icon(
-                    Icons.get_app_outlined,
-                    color: LABLECOLOR1,
-                    size: 35,
+                child: Column(
+                children: [
+                  const Text(
+                    'download video',
+                    style: TextStyle(fontSize: 20),
                   ),
-                ),
-              ],
-            ))
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      var pro = Provider.of<MyProvider>(context, listen: false);
+                      pro.changeCurrent(3);
+                      pro.screens[pro.indexScreen];
+                    },
+                    backgroundColor: BUTTONCOLOR3,
+                    child: const Icon(
+                      Icons.get_app_outlined,
+                      color: LABLECOLOR1,
+                      size: 35,
+                    ),
+                  ),
+                ],
+              ))
       ],
     ));
   }
