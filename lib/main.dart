@@ -17,6 +17,7 @@ import 'package:new_music/test.dart';
 import 'package:new_music/screens/video_screen/fullScreen.dart';
 import 'package:provider/provider.dart';
 
+import 'componentes/openYouTubeScreen.dart';
 import 'firebase_options.dart';
 import 'outh/loginScreen/loginScreen.dart';
 import 'outh/signupScreen/signupScreen.dart';
@@ -85,6 +86,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (context) => LoginScreen(),
         SignUpScreen.routeName: (context) => SignUpScreen(),
         FullScreen.routeName: (context) => FullScreen(),
+        OpenYouTube.routeName: (context) => OpenYouTube(),
 
 
       },

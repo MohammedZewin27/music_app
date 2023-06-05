@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:new_music/screens/home_screen/home_screen.dart';
 
 import 'package:new_music/screens/setting_screen/setting_screen.dart';
@@ -10,42 +11,42 @@ import 'package:new_music/screens/video_screen/video_screen.dart';
 import '../componentes/musicCard.dart';
 import '../screens/music_screen/music_screen.dart';
 
-class MyProvider extends ChangeNotifier{
-
-  List<Widget> screens=[
+class MyProvider extends ChangeNotifier {
+  List<Widget> screens = [
     const Home_Screen(),
     Music_Screen(),
-     VideoScreen (),
-     Setting_Screen()
+    VideoScreen(),
+    Setting_Screen()
   ];
 
-  List<String>textTitle=[
-   ' Home',
-    'Music',
-    'Video',
-    'Setting'
+  List<String> textTitle = [' Home', 'Music', 'Video', 'Setting'];
+  List<Widget> icons =const [
+    Icon(Icons.login_outlined),
+    Icon(Icons.library_music),
+    Icon(Icons.video_collection),
+    Icon(Icons.youtube_searched_for),
   ];
 
-int indexScreen=0;
-  changeCurrent(int index){
-indexScreen=index;
-notifyListeners();
+  int indexScreen = 0;
 
+  changeCurrent(int index) {
+    indexScreen = index;
+    notifyListeners();
   }
-
 
   var myUser;
   User? firebaseUser;
-  MyProvider(){
-    firebaseUser=FirebaseAuth.instance.currentUser;
-    if(firebaseUser!=null){
+
+  MyProvider() {
+    firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
       initMyUser();
     }
   }
-  void initMyUser()async{
-    myUser= firebaseUser?.uid??"";
-  }
 
+  void initMyUser() async {
+    myUser = firebaseUser?.uid ?? "";
+  }
 
   Future<void> deleteFile(String filePath) async {
     try {
@@ -61,14 +62,10 @@ notifyListeners();
     }
   }
 
-
   final List<String> items = [
     'Delete',
     'Item2',
     'Item3',
-
   ];
   String? selectedValue;
-
-
 }

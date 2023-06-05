@@ -100,31 +100,8 @@ class _VideoScreenState extends State<VideoScreen> {
         ),
         Visibility(
           visible: allVideo.isNotEmpty,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3),
-            child: Column(
-              children: [
-                VideoProgressIndicator(
-                  controller,
-                  allowScrubbing: true,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      provider.positionNow.toString().substring(2, 7),
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(fontSize: 17),
-                    ),
-                    Text(
-                      videos.isNotEmpty ? videos[indexVideo].duration : '',
-                      textAlign: TextAlign.right,
-                      style: const TextStyle(fontSize: 17),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3),
           ),
         ),
         allVideo.isNotEmpty
@@ -184,5 +161,4 @@ class _VideoScreenState extends State<VideoScreen> {
     ));
   }
 
-  void videoPosition() {}
 }
