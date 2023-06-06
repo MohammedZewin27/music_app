@@ -1,27 +1,31 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:new_music/componentes/videoCard.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:provider/provider.dart';
 import '../../componentes/musicCard.dart';
 import '../../constant/const.dart';
 import '../../model/model_video_youtube.dart';
+import '../../provider/provider.dart';
+import '../../provider/providerDatabase.dart';
 import '../../style/colors.dart';
 
 class Play_Screen extends StatefulWidget {
-  final MyVideo video;
+  static const String routeName = 'music';
+  final MyVideo audio;
 
   const Play_Screen({
     super.key,
-    required this.video,
+    required this.audio,
   });
-
   @override
   State<Play_Screen> createState() => _Play_ScreenState();
 }
 
 class _Play_ScreenState extends State<Play_Screen> {
   late AudioPlayer player;
+  late AudioCache cache;
 
   Duration currentPostion = Duration();
   Duration musicLength = Duration();
@@ -51,19 +55,22 @@ class _Play_ScreenState extends State<Play_Screen> {
     });
   }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   player.dispose();
-  // }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  cache.clearAll();
+    player.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var providerMusic = Provider.of<ProviderMusic>(context);
-
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    var proAudio = Provider.of<ProviderMusic>(context);
+    Provider.of<ProviderData>(context);
+    return allAudio.isNotEmpty
+        ? Padding(
+      padding: const EdgeInsets.all(5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -71,7 +78,7 @@ class _Play_ScreenState extends State<Play_Screen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
               image: DecorationImage(
-                image: NetworkImage(widget.video.image),
+                image: NetworkImage(audios[proAudio.indexMusic].image),
                 fit: BoxFit.fill,
               ),
               border: Border.all(color: LABLECOLOR, width: 5),
@@ -79,10 +86,15 @@ class _Play_ScreenState extends State<Play_Screen> {
             width: MediaQuery.of(context).size.width * 0.40,
             height: MediaQuery.of(context).size.width * 0.40,
           ),
-          SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           Text(
-            widget.video.title,
-            style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 20),
+            audios[proAudio.indexMusic].title,
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge
+                ?.copyWith(fontSize: 20),
             maxLines: 2,
           ),
           Row(
@@ -92,7 +104,7 @@ class _Play_ScreenState extends State<Play_Screen> {
                 child: ProgressBar(
                   progress: currentPostion,
                   buffered: const Duration(seconds: 40),
-                  total: parseDuration(widget.video.duration),
+                  total: parseDuration(audios[proAudio.indexMusic].duration),
                   progressBarColor: Colors.red,
                   baseBarColor: Colors.white.withOpacity(0.24),
                   bufferedBarColor: Colors.white.withOpacity(0.24),
@@ -100,7 +112,7 @@ class _Play_ScreenState extends State<Play_Screen> {
                   barHeight: 3.0,
                   thumbRadius: 5.0,
                   onDragEnd: () {
-                    providerMusic.isPlay = false;
+                    proAudio.isPlay = false;
                   },
                   timeLabelTextStyle: const TextStyle(fontSize: 15),
                   onSeek: (duration) {
@@ -115,10 +127,13 @@ class _Play_ScreenState extends State<Play_Screen> {
             children: [
               IconButton(
                 onPressed: () {
-                  if (currentPostion < const Duration(seconds: 10)) {
-                    seekTo(currentPostion.inSeconds);
+                  var proMusic = Provider.of<ProviderMusic>(context,listen: false);
+                  if(proMusic.indexMusic==0) {
+                    return;
+                  }else{
+                    proMusic.indexMusic=proMusic.indexMusic-1;
+                    playMusic();
                   }
-                  seekTo(currentPostion.inSeconds - 10);
                 },
                 icon: const Icon(
                   Icons.skip_previous_rounded,
@@ -127,33 +142,42 @@ class _Play_ScreenState extends State<Play_Screen> {
               ),
               IconButton(
                 onPressed: () {
-                  providerMusic.isPlay = !providerMusic.isPlay;
+                  proAudio.isPlay = !proAudio.isPlay;
                   setState(() {
-                    providerMusic.isPlay ? playMusic() : pauseMusic();
+                    proAudio.isPlay ? playMusic() : pauseMusic();
                   });
                 },
-                icon: providerMusic.isPlay
+                icon: proAudio.isPlay
                     ? const Icon(
-                        Icons.pause_circle_outlined,
-                        size: 40,
-                      )
+                  Icons.pause_circle_outlined,
+                  size: 40,
+                )
                     : const Icon(
-                        Icons.play_circle_fill_rounded,
-                        size: 40,
-                      ),
+                  Icons.play_circle_fill_rounded,
+                  size: 40,
+                ),
               ),
               IconButton(
                 onPressed: () {
-                  if (currentPostion <
-                      musicLength - const Duration(seconds: 10)) {
-                    seekTo(currentPostion.inSeconds);
-
-                      // providerMusic.isPlay = false;
-
-                    player.stop();
-                  } else {
-                    seekTo(currentPostion.inSeconds + 10);
+                  // if (currentPostion <
+                  //     musicLength - const Duration(seconds: 10)) {
+                  //   seekTo(currentPostion.inSeconds);
+                  //
+                  //   // providerMusic.isPlay = false;
+                  //
+                  //   player.stop();
+                  // } else {
+                  //   seekTo(currentPostion.inSeconds + 10);
+                  // }
+                  var proMusic = Provider.of<ProviderMusic>(context,listen: false);
+                  if(proMusic.indexMusic>=audios.length-1) {
+                    return;
+                  }else{
+                    proMusic.indexMusic=proMusic.indexMusic+1;
+                    playMusic();
                   }
+
+
                 },
                 icon: const Icon(
                   Icons.skip_next,
@@ -163,41 +187,66 @@ class _Play_ScreenState extends State<Play_Screen> {
             ],
           ),
           Expanded(
-            child: audios.isEmpty
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : ListView.builder(
-                    itemCount: allAudio.length,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-
-                        providerMusic.changeIndexMusic(index);
-                        if (providerMusic.isPlay) {
-                          stopPlay();
-                            providerMusic.isPlay = false;
-                          print("INDEX ================> ${providerMusic.isPlay}");
-
-                        } else {
-                          playMusic();
-                            providerMusic.isPlay = true;
-                          print("INDEX ================> $index");
-                        }
-                      },
-                      child: MusicCard(
-                          height: 0.07,
-                          title: audios[index].title.substring(0, 20),
-                          image: audios[index].image),
-                    ),
-                  ),
+            child: ListView.builder(
+              itemCount: allAudio.length,
+              itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    proAudio.changeIndexMusic(index);
+                    if (proAudio.isPlay) {
+                      stopPlay();
+                      proAudio.isPlay = false;
+                      print(
+                          "INDEX ================> ${proAudio.isPlay}");
+                    } else {
+                      playMusic();
+                      proAudio.isPlay = true;
+                      print("INDEX ================> $index");
+                    }
+                  },
+                  child: VideoCard(
+                      padding: 0.0,
+                      videoOrAudio: allAudio,
+                      image: audios[index].image,
+                      duration: audios[index].duration,
+                      title: audios[index].title,
+                      index: index)),
+            ),
           ),
         ],
       ),
-    );
+    )
+        : Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'download audio',
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                var pro = Provider.of<MyProvider>(context, listen: false);
+                pro.changeCurrent(3);
+                pro.screens[pro.indexScreen];
+              },
+              backgroundColor: BUTTONCOLOR3,
+              child: const Icon(
+                Icons.get_app_outlined,
+                color: LABLECOLOR1,
+                size: 35,
+              ),
+            ),
+          ],
+        ));
   }
 
   playMusic() async {
-    await player.play(DeviceFileSource(widget.video.filePath));
+    var proMusic = Provider.of<ProviderMusic>(context,listen: false);
+    await player.play(DeviceFileSource(audios[indexMusic].filePath));
+print('index music ================================== ${proMusic.indexMusic}');
   }
 
   pauseMusic() {

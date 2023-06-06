@@ -11,6 +11,8 @@ class VideoCard extends StatelessWidget {
   final String duration;
   final String title;
   final int index;
+  final List videoOrAudio;
+  final double padding;
 
 
   const VideoCard(
@@ -19,15 +21,17 @@ class VideoCard extends StatelessWidget {
       required this.duration,
       required this.title,
       required this.index,
+      required this.videoOrAudio,
+       this.padding=2,
 
 
       });
 
   @override
   Widget build(BuildContext context) {
-    var proVideo=Provider.of<ProviderData>(context);
+    var proAudio=Provider.of<ProviderData>(context);
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding:  EdgeInsets.all(padding),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Colors.transparent,
@@ -37,10 +41,9 @@ class VideoCard extends StatelessWidget {
               children: [
                 SlidableAction(
                   onPressed: (context) {
-
-                    proVideo.deleteRowInDatabaseVideo(
-                        id: allVideo[index]['id']);
-                    proVideo.deleteFile(allVideo[index]['filePath']);
+                    proAudio.deleteRowInDatabaseAudio(
+                        id: videoOrAudio[index]['id']);
+                    proAudio.deleteFile(videoOrAudio[index]['filePath']);
                   },
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
