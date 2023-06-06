@@ -12,6 +12,7 @@ class VideoCard extends StatelessWidget {
   final String title;
   final int index;
   final List videoOrAudio;
+  final double padding;
 
 
   const VideoCard(
@@ -21,6 +22,7 @@ class VideoCard extends StatelessWidget {
       required this.title,
       required this.index,
       required this.videoOrAudio,
+       this.padding=2,
 
 
       });
@@ -29,7 +31,7 @@ class VideoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var proAudio=Provider.of<ProviderData>(context);
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding:  EdgeInsets.all(padding),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         color: Colors.transparent,

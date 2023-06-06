@@ -18,7 +18,7 @@ class ProviderMusic extends ChangeNotifier{
     indexMusic=index;
     notifyListeners();
   }
-  late AudioPlayer player;
+  // late AudioPlayer player;
 
   bool isPlay=false;
 

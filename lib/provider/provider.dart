@@ -10,6 +10,7 @@ import 'package:new_music/screens/video_screen/video_screen.dart';
 
 import '../componentes/musicCard.dart';
 import '../screens/music_screen/music_screen.dart';
+import '../screens/music_screen/play_screen.dart';
 
 class MyProvider extends ChangeNotifier {
   List<Widget> screens = [
