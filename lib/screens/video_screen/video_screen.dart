@@ -66,121 +66,102 @@ class _VideoScreenState extends State<VideoScreen> {
 
     return Scaffold(
         body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Visibility(
-          visible: allVideo.isNotEmpty,
-          child: InkWell(
-            onTap: () {
-              isPlay ? controller.pause() : controller.play();
-              setState(() {
-                isPlay = !isPlay;
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: VideoPlayer(controller),
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, FullScreen.routeName);
-                      },
-                      icon: const Icon(
-                        Icons.fullscreen,
-                        color: Colors.white,
-                      )),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Visibility(
-          visible: allVideo.isNotEmpty,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3),
-          ),
-        ),
-        ProgressBar(
-          progress:Duration(minutes: 00,seconds: 00),
-          buffered: const Duration(seconds: 40),
-          total: parseDuration(videos[indexVideo].duration),
-          progressBarColor: Colors.red,
-          baseBarColor: Colors.white.withOpacity(0.24),
-          bufferedBarColor: Colors.white.withOpacity(0.24),
-          thumbColor: Colors.white,
-          barHeight: 3.0,
-          thumbRadius: 5.0,
-          onDragEnd: () {
-         isPlay = false;
-          },
-          timeLabelTextStyle: const TextStyle(fontSize: 15),
-          onSeek: (duration) {
-            controller.seekTo(duration);
-            setState(() {
-
-            });
-          },
-        ),
-        allVideo.isNotEmpty
-            ? Expanded(
-                child: ListView.builder(
-                  itemCount: videos.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      controller.dispose();
-                      controller = VideoPlayerController.file(
-                          File(videos[index].filePath))
-                        ..initialize().then((_) {
-                          setState(() {
-                            controllerInitialize = true;
-                          });
-                        });
-                      controller.play();
-                      setState(() {
-                        isPlay = true;
-                      });
-                    },
-                    child: VideoCard(
-                      index: index,
-                      image: videos[index].image,
-                      duration: videos[index].duration,
-                      title: videos[index].title,
-                    ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Visibility(
+              visible: allVideo.isNotEmpty,
+              child: InkWell(
+                onTap: () {
+                  isPlay ? controller.pause() : controller.play();
+                  setState(() {
+                    isPlay = !isPlay;
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: VideoPlayer(controller),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, FullScreen.routeName);
+                          },
+                          icon: const Icon(
+                            Icons.fullscreen,
+                            color: Colors.white,
+                          )),
+                    ],
                   ),
                 ),
-              )
-            : Center(
+              ),
+            ),
+            Visibility(
+              visible: allVideo.isNotEmpty,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3),
+              ),
+            ),
+
+            allVideo.isNotEmpty
+                ? Expanded(
+              child: ListView.builder(
+                itemCount: videos.length,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    controller.dispose();
+                    controller = VideoPlayerController.file(
+                        File(videos[index].filePath))
+                      ..initialize().then((_) {
+                        setState(() {
+                          controllerInitialize = true;
+                        });
+                      });
+                    controller.play();
+                    setState(() {
+                      isPlay = true;
+                    });
+                  },
+                  child: VideoCard(
+                    videoOrAudio: allVideo,
+                    index: index,
+                    image: videos[index].image,
+                    duration: videos[index].duration,
+                    title: videos[index].title,
+                  ),
+                ),
+              ),
+            )
+                : Center(
                 child: Column(
-                children: [
-                  const Text(
-                    'download video',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      var pro = Provider.of<MyProvider>(context, listen: false);
-                      pro.changeCurrent(3);
-                      pro.screens[pro.indexScreen];
-                    },
-                    backgroundColor: BUTTONCOLOR3,
-                    child: const Icon(
-                      Icons.get_app_outlined,
-                      color: LABLECOLOR1,
-                      size: 35,
+                  children: [
+                    const Text(
+                      'download video',
+                      style: TextStyle(fontSize: 20),
                     ),
-                  ),
-                ],
-              ))
-      ],
-    ));
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    FloatingActionButton(
+                      onPressed: () {
+                        var pro = Provider.of<MyProvider>(context, listen: false);
+                        pro.changeCurrent(3);
+                        pro.screens[pro.indexScreen];
+                      },
+                      backgroundColor: BUTTONCOLOR3,
+                      child: const Icon(
+                        Icons.get_app_outlined,
+                        color: LABLECOLOR1,
+                        size: 35,
+                      ),
+                    ),
+                  ],
+                ))
+          ],
+        ));
   }
   Duration parseDuration(String s) {
     int hours = 0;
