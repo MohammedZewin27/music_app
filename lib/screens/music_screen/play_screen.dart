@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:new_music/componentes/videoCard.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:provider/provider.dart';
-import '../../componentes/musicCard.dart';
+import '../home_screen/radioScreen.dart';
 import '../../constant/const.dart';
 import '../../model/model_video_youtube.dart';
 import '../../provider/provider.dart';
@@ -57,17 +57,16 @@ class _Play_ScreenState extends State<Play_Screen> {
 
 
   @override
-  void dispose() {
+  void dispose() async{
     // TODO: implement dispose
     super.dispose();
-
-    player.dispose();
+   await player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var proAudio = Provider.of<ProviderMusic>(context);
-    Provider.of<ProviderData>(context);
+   var provData= Provider.of<ProviderData>(context);
     return allAudio.isNotEmpty
         ? Padding(
       padding: const EdgeInsets.all(5.0),
@@ -126,13 +125,13 @@ class _Play_ScreenState extends State<Play_Screen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                onPressed: () {
+                onPressed: () async{
                   var proMusic = Provider.of<ProviderMusic>(context,listen: false);
                   if(proMusic.indexMusic==0) {
                     return;
                   }else{
                     proMusic.indexMusic=proMusic.indexMusic-1;
-                    playMusic();
+                   await playMusic();
                   }
                 },
                 icon: const Icon(
@@ -158,23 +157,13 @@ class _Play_ScreenState extends State<Play_Screen> {
                 ),
               ),
               IconButton(
-                onPressed: () {
-                  // if (currentPostion <
-                  //     musicLength - const Duration(seconds: 10)) {
-                  //   seekTo(currentPostion.inSeconds);
-                  //
-                  //   // providerMusic.isPlay = false;
-                  //
-                  //   player.stop();
-                  // } else {
-                  //   seekTo(currentPostion.inSeconds + 10);
-                  // }
+                onPressed: () async{
                   var proMusic = Provider.of<ProviderMusic>(context,listen: false);
                   if(proMusic.indexMusic>=audios.length-1) {
                     return;
                   }else{
                      proMusic.indexMusic++;
-                    playMusic();
+                    await playMusic();
                   }
                 },
                 icon: const Icon(
@@ -202,8 +191,13 @@ class _Play_ScreenState extends State<Play_Screen> {
                     }
                   },
                   child: VideoCard(
+                    height: 50,
+                      maxLines: 1,
                       padding: 0.0,
-                   delete: (context){},
+                   delete: (context){
+                     provData.deleteRowInDatabaseAudio(id: allAudio[index]['id']);
+                     provData.deleteFile(allAudio[index]['filePath']);
+                   },
                       image: audios[index].image,
                       duration: audios[index].duration,
                       title: audios[index].title,

@@ -104,7 +104,9 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         .showBottomSheet(
                           (context) {
                             return Container(
-                                color: Colors.transparent, child: Text('غير متاح الان'));
+                              height: 50,
+                              width: double.infinity,
+                                color: Colors.transparent, child: Center(child: Text('غير متاح الان',style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: PREMIUMCOLOR),)));
                           },
                           elevation: 30,
                         )

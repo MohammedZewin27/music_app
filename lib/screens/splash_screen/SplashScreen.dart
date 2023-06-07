@@ -2,16 +2,32 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
 import 'package:provider/provider.dart';
-import '../../outh/loginScreen/loginScreen.dart';
-import '../../provider/provider.dart';
 
-class SplashScreen extends StatelessWidget {
+import '../../provider/provider.dart';
+import '../outh/loginScreen/loginScreen.dart';
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
   static const String routeName = 'SplashScreen';
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    timerOpen();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    timerOpen(context);
     return Scaffold(
       body: Column(
         children: [
@@ -20,41 +36,65 @@ class SplashScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                    child: Text(
-                  'Music',
-                  style: TextStyle(
+                  child: Text(
+                    'Music',
+                    style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * .20,
                       fontFamily: 'My_Font',
-                      color: Colors.white),
-                )),
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 const Center(
-                    child: Text(
-                  'v1.0',
-                  style: TextStyle(
-                      fontSize: 25, fontFamily: 'My_Font', color: Colors.white),
-                )),
+                  child: Text(
+                    'v1.0',
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'My_Font',
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           Text(
             'محمد زوين',
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontFamily: 'My_Font3',
-                  fontSize: 25,
-                ),
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontFamily: 'My_Font3',
+              fontSize: 25,
+            ),
           ),
         ],
       ),
     );
   }
+
+  void timerOpen() {
+    Timer(
+      const Duration(seconds: 2),
+          () {
+        var provider = Provider.of<MyProvider>(context, listen: false);
+        if (provider.firebaseUser != null) {
+          Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
+        } else {
+          Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+        }
+      },
+    );
+  }
 }
 
-timerOpen(BuildContext context) {
-  var provider = Provider.of<MyProvider>(context);
-  Timer(
-    const Duration(seconds: 2),
-    () async => provider.firebaseUser != null
-        ? await Navigator.pushReplacementNamed(context, LayoutScreen.routeName)
-        : await Navigator.pushReplacementNamed(context, LoginScreen.routeName),
-  );
-}
+// void timerOpen(BuildContext context) {
+//   Timer(
+//     const Duration(seconds: 2),
+//         () {
+//       var provider = Provider.of<MyProvider>(context, listen: false);
+//       if (provider.firebaseUser != null) {
+//         Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
+//       } else {
+//         Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+//       }
+//     },
+//   );
+// }

@@ -62,110 +62,111 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderVideo>(context);
-    var provData =Provider.of<ProviderData>(context);
+    var provData = Provider.of<ProviderData>(context);
 
     return Scaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Visibility(
-              visible: allVideo.isNotEmpty,
-              child: InkWell(
-                onTap: () {
-                  isPlay ? controller.pause() : controller.play();
-                  setState(() {
-                    isPlay = !isPlay;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Stack(
-                    alignment: AlignmentDirectional.bottomEnd,
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: VideoPlayer(controller),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, FullScreen.routeName);
-                          },
-                          icon: const Icon(
-                            Icons.fullscreen,
-                            color: Colors.white,
-                          )),
-                    ],
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Visibility(
+          visible: allVideo.isNotEmpty,
+          child: InkWell(
+            onTap: () {
+              isPlay ? controller.pause() : controller.play();
+              setState(() {
+                isPlay = !isPlay;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: VideoPlayer(controller),
                   ),
-                ),
-              ),
-            ),
-            Visibility(
-              visible: allVideo.isNotEmpty,
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3),
-              ),
-            ),
-
-            allVideo.isNotEmpty
-                ? Expanded(
-              child: ListView.builder(
-                itemCount: videos.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    controller.dispose();
-                    controller = VideoPlayerController.file(
-                        File(videos[index].filePath))
-                      ..initialize().then((_) {
-                        setState(() {
-                          controllerInitialize = true;
-                        });
-                      });
-                    controller.play();
-                    setState(() {
-                      isPlay = true;
-                    });
-                  },
-                  child: VideoCard(
-                 delete: (context) {
-                   provData.deleteRowInDatabaseVideo(id: allVideo[index]['id']);
-                   provData.deleteFile(allVideo[index]['filePath']);
-                 },
-                    index: index,
-                    image: videos[index].image,
-                    duration: videos[index].duration,
-                    title: videos[index].title,
-                  ),
-                ),
-              ),
-            )
-                : Center(
-                child: Column(
-                  children: [
-                    const Text(
-                      'download video',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    FloatingActionButton(
+                  IconButton(
                       onPressed: () {
-                        var pro = Provider.of<MyProvider>(context, listen: false);
-                        pro.changeCurrent(3);
-                        pro.screens[pro.indexScreen];
+                        Navigator.pushNamed(context, FullScreen.routeName);
                       },
-                      backgroundColor: BUTTONCOLOR3,
-                      child: const Icon(
-                        Icons.get_app_outlined,
-                        color: LABLECOLOR1,
-                        size: 35,
-                      ),
+                      icon: const Icon(
+                        Icons.fullscreen,
+                        color: Colors.white,
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Visibility(
+          visible: allVideo.isNotEmpty,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3),
+          ),
+        ),
+        allVideo.isNotEmpty
+            ? Expanded(
+                child: ListView.builder(
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      controller.dispose();
+                      controller = VideoPlayerController.file(
+                          File(videos[index].filePath))
+                        ..initialize().then((_) {
+                          setState(() {
+                            controllerInitialize = true;
+                          });
+                        });
+                      controller.play();
+                      setState(() {
+                        isPlay = true;
+                      });
+                    },
+                    child: VideoCard(
+                      delete: (context) {
+                        provData.deleteRowInDatabaseVideo(
+                            id: allVideo[index]['id']);
+                        provData.deleteFile(allVideo[index]['filePath']);
+                      },
+                      index: index,
+                      image: videos[index].image,
+                      duration: videos[index].duration,
+                      title: videos[index].title,
                     ),
-                  ],
-                ))
-          ],
-        ));
+                  ),
+                ),
+              )
+            : Center(
+                child: Column(
+                children: [
+                  const Text(
+                    'download video',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      var pro = Provider.of<MyProvider>(context, listen: false);
+                      pro.changeCurrent(3);
+                      pro.screens[pro.indexScreen];
+                    },
+                    backgroundColor: BUTTONCOLOR3,
+                    child: const Icon(
+                      Icons.get_app_outlined,
+                      color: LABLECOLOR1,
+                      size: 35,
+                    ),
+                  ),
+                ],
+              ))
+      ],
+    ));
   }
+
   Duration parseDuration(String s) {
     int hours = 0;
     int minutes = 0;
