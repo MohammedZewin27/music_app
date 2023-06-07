@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:new_music/provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
@@ -37,7 +39,8 @@ class _OpenYouTubeState extends State<OpenYouTube> {
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            // Update loading bar.
+            var pro=Provider.of<MyProvider>(context,listen: false);
+            pro.changeprogressYoutube(progress);
           },
           onPageStarted: (String url) {},
           onPageFinished: (String url) {},
@@ -64,16 +67,41 @@ class _OpenYouTubeState extends State<OpenYouTube> {
     urlTextEditingController.dispose();
   }
 
+  String copiedText = '';
+  void onTextCopied(String text) {
+    setState(() {
+      copiedText = text; // تحديث قيمة المتغير عند نسخ النص
+    });
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    var pro=Provider.of<MyProvider>(context,listen: false);
     // _loadHtmlFromAssets();
     return Scaffold(
       appBar: AppBar(
-        title: Text('zewin youtube'),
+        title: const Text('zewin youtube'),
+
+        centerTitle: true,
       ),
-      body: WebViewWidget(
+      body:pro.progressYoutube==100? WebViewWidget(
         controller: controller,
+      ):
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('loading . . .'),
+            Text('${pro.progressYoutube} %'),
+
+          ],
+        ),
       ),
+
     );
   }
 

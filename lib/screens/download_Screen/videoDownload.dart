@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../model/model_video_youtube.dart';
+import '../../provider/provider.dart';
 import '../../provider/providerDatabase.dart';
 import '../../style/colors.dart';
 

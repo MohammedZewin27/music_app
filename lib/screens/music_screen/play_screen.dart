@@ -67,7 +67,7 @@ class _Play_ScreenState extends State<Play_Screen> {
   @override
   Widget build(BuildContext context) {
     var proAudio = Provider.of<ProviderMusic>(context);
-    Provider.of<ProviderData>(context);
+   var provData= Provider.of<ProviderData>(context);
     return allAudio.isNotEmpty
         ? Padding(
       padding: const EdgeInsets.all(5.0),
@@ -202,8 +202,13 @@ class _Play_ScreenState extends State<Play_Screen> {
                     }
                   },
                   child: VideoCard(
+                    height: 50,
+                      maxLines: 1,
                       padding: 0.0,
-                   delete: (context){},
+                   delete: (context){
+                     provData.deleteRowInDatabaseAudio(id: allAudio[index]['id']);
+                     provData.deleteFile(allAudio[index]['filePath']);
+                   },
                       image: audios[index].image,
                       duration: audios[index].duration,
                       title: audios[index].title,

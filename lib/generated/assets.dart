@@ -15,5 +15,6 @@ class Assets {
   static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
   static const String imageMusic = 'assets/image/Music.jpg';
+  static const String imageZewin = 'assets/image/zewin.webp';
 
 }

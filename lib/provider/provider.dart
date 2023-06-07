@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:new_music/screens/home_screen/home_screen.dart';
 
 import 'package:new_music/screens/setting_screen/setting_screen.dart';
@@ -13,6 +14,31 @@ import '../screens/music_screen/music_screen.dart';
 import '../screens/music_screen/play_screen.dart';
 
 class MyProvider extends ChangeNotifier {
+  String copiedText = '';
+
+  void onTextCopied(String text) {
+    copiedText = text; // تحديث قيمة المتغير عند نسخ النص
+    notifyListeners();
+  }
+
+  copyText() {
+    Clipboard.getData('text/plain').then((value) {
+      if (value != null && value.text != null) {
+        onTextCopied(value.text!);
+        notifyListeners();// استدعاء الدالة عند نسخ النص
+      }
+
+    });
+    notifyListeners();
+  }
+
+  int progressYoutube = 0;
+
+  changeprogressYoutube(int index) {
+    progressYoutube = index;
+    notifyListeners();
+  }
+
   List<Widget> screens = [
     const Home_Screen(),
     Music_Screen(),
@@ -21,7 +47,7 @@ class MyProvider extends ChangeNotifier {
   ];
 
   List<String> textTitle = [' Home', 'Music', 'Video', 'Setting'];
-  List<Widget> icons =const [
+  List<Widget> icons = const [
     Icon(Icons.login_outlined),
     Icon(Icons.library_music),
     Icon(Icons.video_collection),
