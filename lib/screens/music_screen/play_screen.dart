@@ -25,7 +25,7 @@ class Play_Screen extends StatefulWidget {
 
 class _Play_ScreenState extends State<Play_Screen> {
   late AudioPlayer player;
-  late AudioCache cache;
+
 
   Duration currentPostion = Duration();
   Duration musicLength = Duration();
@@ -60,7 +60,7 @@ class _Play_ScreenState extends State<Play_Screen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-  cache.clearAll();
+
     player.dispose();
   }
 
@@ -173,11 +173,9 @@ class _Play_ScreenState extends State<Play_Screen> {
                   if(proMusic.indexMusic>=audios.length-1) {
                     return;
                   }else{
-                    proMusic.indexMusic=proMusic.indexMusic+1;
+                     proMusic.indexMusic++;
                     playMusic();
                   }
-
-
                 },
                 icon: const Icon(
                   Icons.skip_next,
@@ -205,7 +203,7 @@ class _Play_ScreenState extends State<Play_Screen> {
                   },
                   child: VideoCard(
                       padding: 0.0,
-                      videoOrAudio: allAudio,
+                   delete: (context){},
                       image: audios[index].image,
                       duration: audios[index].duration,
                       title: audios[index].title,
@@ -245,8 +243,8 @@ class _Play_ScreenState extends State<Play_Screen> {
 
   playMusic() async {
     var proMusic = Provider.of<ProviderMusic>(context,listen: false);
-    await player.play(DeviceFileSource(audios[indexMusic].filePath));
-print('index music ================================== ${proMusic.indexMusic}');
+    await player.play(DeviceFileSource(audios[proMusic.indexMusic].filePath));
+    print('index music ================================== ${proMusic.indexMusic}');
   }
 
   pauseMusic() {

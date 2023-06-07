@@ -11,8 +11,9 @@ class VideoCard extends StatelessWidget {
   final String duration;
   final String title;
   final int index;
-  final List videoOrAudio;
+
   final double padding;
+  final Function(BuildContext)? delete;
 
 
   const VideoCard(
@@ -21,7 +22,8 @@ class VideoCard extends StatelessWidget {
       required this.duration,
       required this.title,
       required this.index,
-      required this.videoOrAudio,
+
+      required this.delete,
        this.padding=2,
 
 
@@ -40,11 +42,7 @@ class VideoCard extends StatelessWidget {
               motion: ScrollMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (context) {
-                    proAudio.deleteRowInDatabaseAudio(
-                        id: videoOrAudio[index]['id']);
-                    proAudio.deleteFile(videoOrAudio[index]['filePath']);
-                  },
+                  onPressed: delete,
                   backgroundColor: Color(0xFFFE4A49),
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
