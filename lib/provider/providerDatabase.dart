@@ -116,14 +116,14 @@ class ProviderData extends ChangeNotifier {
       allAudio = value;
       audios = allAudio
           .map((videoMap) => MyVideo(
-                videoId: videoMap['id'].toString(),
-                title: videoMap['videoTitle'],
-                thumbnailUrl: videoMap['videoUrl'],
-                duration: videoMap['videoDuration'],
-                publishDate: videoMap['videoPublishDate'],
-                image: videoMap['videoImage'],
-                filePath: videoMap['filePath'],
-              ))
+        videoId: videoMap['id'].toString(),
+        title: videoMap['videoTitle'],
+        thumbnailUrl: videoMap['videoUrl'],
+        duration: videoMap['videoDuration'],
+        publishDate: videoMap['videoPublishDate'],
+        image: videoMap['videoImage'],
+        filePath: videoMap['filePath'],
+      ))
           .toList();
       print(audios);
       notifyListeners();
@@ -135,14 +135,14 @@ class ProviderData extends ChangeNotifier {
       allVideo = value;
       videos = allVideo
           .map((videoMap) => MyVideo(
-                videoId: videoMap['id'].toString(),
-                title: videoMap['videoTitle'],
-                thumbnailUrl: videoMap['videoUrl'],
-                duration: videoMap['videoDuration'],
-                publishDate: videoMap['videoPublishDate'],
-                image: videoMap['videoImage'],
-                filePath: videoMap['filePath'],
-              ))
+        videoId: videoMap['id'].toString(),
+        title: videoMap['videoTitle'],
+        thumbnailUrl: videoMap['videoUrl'],
+        duration: videoMap['videoDuration'],
+        publishDate: videoMap['videoPublishDate'],
+        image: videoMap['videoImage'],
+        filePath: videoMap['filePath'],
+      ))
           .toList();
       print(videos);
       notifyListeners();

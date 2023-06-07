@@ -62,7 +62,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderVideo>(context);
-    Provider.of<ProviderData>(context);
+    var provData =Provider.of<ProviderData>(context);
 
     return Scaffold(
         body: Column(
@@ -126,7 +126,10 @@ class _VideoScreenState extends State<VideoScreen> {
                     });
                   },
                   child: VideoCard(
-                    videoOrAudio: allVideo,
+                 delete: (context) {
+                   provData.deleteRowInDatabaseVideo(id: allVideo[index]['id']);
+                   provData.deleteFile(allVideo[index]['filePath']);
+                 },
                     index: index,
                     image: videos[index].image,
                     duration: videos[index].duration,
