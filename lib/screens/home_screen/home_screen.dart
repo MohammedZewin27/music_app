@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:new_music/componentes/homeCard.dart';
 import 'package:new_music/generated/assets.dart';
+import 'package:new_music/network/api_manager.dart';
 import 'package:new_music/style/colors.dart';
+
+import '../../model/api_Radios.dart';
 
 class Home_Screen extends StatelessWidget {
   const Home_Screen({Key? key}) : super(key: key);
@@ -21,7 +24,25 @@ class Home_Screen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const HomeCard(title: 'video',image: Assets.iconVideoIcon),
-            const HomeCard(title: 'music',image: Assets.iconMusicIconCard,)
+            const HomeCard(title: 'music',image: Assets.iconMusicIconCard,),
+            Expanded(
+              child: FutureBuilder<ApiRadios>(
+                future: ApiManager.getSources(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('SomeThing Wrong'));
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data?.radios?.length,
+                    itemBuilder: (context, index) =>
+                        Text('${snapshot.data!.radios?[index].name}'),
+                  );
+                },
+              ),
+            )
 
           ],
         ),
@@ -29,4 +50,3 @@ class Home_Screen extends StatelessWidget {
     );
   }
 }
-
