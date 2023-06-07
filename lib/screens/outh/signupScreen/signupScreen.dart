@@ -1,27 +1,40 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/componentes/defaultButton.dart';
-import 'package:new_music/componentes/defaultTextForm.dart';
+import 'package:new_music/firebaseError.dart';
 import 'package:new_music/generated/assets.dart';
+import 'package:new_music/loding.dart';
+
+import '../../../componentes/defaultButton.dart';
+import '../../../componentes/defaultTextForm.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/loding.dart';
-import 'package:new_music/style/colors.dart';
 
-import '../../firebaseError.dart';
-import '../../screens/LayoutScreen/LayoutScreen.dart';
-import '../signupScreen/signupScreen.dart';
+import '../../../style/colors.dart';
+import '../../LayoutScreen/LayoutScreen.dart';
+import '../loginScreen/loginScreen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-  static const String routeName = 'loginScreen';
+class SignUpScreen extends StatefulWidget {
+  SignUpScreen({Key? key}) : super(key: key);
+  static const String routeName = 'SignUpScreen';
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController usernameController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
+
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final formKey = GlobalKey<FormState>();
+
+   bool isPassword = true;
 
   @override
   Widget build(BuildContext context) {
-    var appLocal = AppLocalizations.of(context)!;
+    var appLocal=AppLocalizations.of(context)!;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
@@ -42,19 +55,31 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        appLocal.singIn,
+                        appLocal.singUp,
+
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(
                         height: 6,
                       ),
                       Text(
-                        appLocal.singInText,
-                        textAlign: TextAlign.start,
+                        appLocal.singUpText,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .09,
+                      ),
+                      DefaultTextForm(
+                          hintText: appLocal.username,
+                          controller: usernameController,
+                          validator: (value) {
+                            if (value!.isEmpty || value == '') {
+                              return appLocal.validUsername;
+                            }
+                            return null;
+                          }),
+                      const SizedBox(
+                        height: 10,
                       ),
                       DefaultTextForm(
                           hintText: appLocal.email,
@@ -78,31 +103,27 @@ class LoginScreen extends StatelessWidget {
                       DefaultTextForm(
                           hintText: appLocal.password,
                           controller: passwordController,
+                          isPassword: isPassword,
+                          suffixIcon: isPassword
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye_outlined,
+                          functionIcon: () {
+                            isPassword = !isPassword;
+                            setState(() {});
+                          },
                           validator: (value) {
-                            if (value!.isEmpty ||
-                                value == '' ||
-                                value.length < 6) {
+                            if (value!.isEmpty || value == ''||value.length<6) {
                               return appLocal.validPassword;
                             }
                             return null;
                           }),
-                      Row(
-                        children: [
-                          const Expanded(child: SizedBox()),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(appLocal.forgot,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(color: LABLECOLOR)),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 15,
                       ),
-                      DefaultButton(
-                          text: appLocal.singIn,
+                      DefaultElevatedButton(
+                          text: appLocal.singUp,
                           onPressed: () async {
-                            await goToHomeScreen(context);
+                            await goToHomePage();
                           }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -110,9 +131,9 @@ class LoginScreen extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.pushReplacementNamed(
-                                  context, SignUpScreen.routeName);
+                                  context, LoginScreen.routeName);
                             },
-                            child: Text(appLocal.dontHaveAccount,
+                            child: Text(appLocal.haveAccount,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -123,7 +144,8 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-              )
+              ),
+
             ],
           ),
         ),
@@ -131,19 +153,26 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  goToHomeScreen(BuildContext context) async {
+  goToHomePage() async {
     if (formKey.currentState!.validate()) {
       try {
-        Loading.showLoading(context: context);
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text);
-         Loading.hideLoading(context);
-        Loading.showMessage(FirebaseError.loginSuccessfully, context);
-        Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
-      } on FirebaseAuthException catch (e) {
+        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
         Loading.hideLoading(context);
-        Loading.showMessage(FirebaseError.wrongEmailOrPassword,context);
+        Loading.showMessage(FirebaseError.accountCreated,context);
+        await Navigator.pushReplacementNamed(context, LayoutScreen.routeName);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == FirebaseError.weakPassword) {
+          Loading.hideLoading(context);
+          Loading.showMessage(FirebaseError.passwordWeak,context);
+        }else if (e.code == FirebaseError.emailAlreadyInUse) {
+       Loading.hideLoading(context);
+       Loading.showMessage(FirebaseError.existsEmail,context);
+        }
+      } catch (e) {
+        print(e);
       }
     }
   }

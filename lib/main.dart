@@ -8,33 +8,33 @@ import 'package:new_music/provider/providerDatabase.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:new_music/provider/providerVideo.dart';
 import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
+import 'package:new_music/screens/home_screen/radioScreen.dart';
+import 'package:new_music/screens/outh/loginScreen/loginScreen.dart';
+import 'package:new_music/screens/outh/signupScreen/signupScreen.dart';
 
 import 'package:new_music/screens/splash_screen/SplashScreen.dart';
 import 'package:new_music/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/test.dart';
 import 'package:new_music/screens/video_screen/fullScreen.dart';
 import 'package:provider/provider.dart';
 
 import 'componentes/openYouTubeScreen.dart';
 import 'firebase_options.dart';
-import 'outh/loginScreen/loginScreen.dart';
-import 'outh/signupScreen/signupScreen.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // FlutterError.onError = (errorDetails) {
-  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  // };
-  // PlatformDispatcher.instance.onError = (error, stack) {
-  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //   return true;
-  // };
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
@@ -53,7 +53,6 @@ void main()async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -79,7 +78,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkThem,
-      initialRoute: LayoutScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
         LayoutScreen.routeName: (context) => const LayoutScreen(),
@@ -87,8 +86,7 @@ class MyApp extends StatelessWidget {
         SignUpScreen.routeName: (context) => SignUpScreen(),
         FullScreen.routeName: (context) => FullScreen(),
         OpenYouTube.routeName: (context) => OpenYouTube(),
-
-
+        RadioScreen.routeName: (context) => RadioScreen(),
       },
     );
   }

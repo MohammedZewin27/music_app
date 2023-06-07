@@ -9,7 +9,7 @@ import 'package:new_music/screens/home_screen/home_screen.dart';
 import 'package:new_music/screens/setting_screen/setting_screen.dart';
 import 'package:new_music/screens/video_screen/video_screen.dart';
 
-import '../componentes/musicCard.dart';
+import '../screens/home_screen/radioScreen.dart';
 import '../screens/music_screen/music_screen.dart';
 import '../screens/music_screen/play_screen.dart';
 
