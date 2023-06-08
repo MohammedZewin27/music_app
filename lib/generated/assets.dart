@@ -11,6 +11,7 @@ class Assets {
   static const String iconVideoIcon = 'assets/icon/videoIcon.png';
   static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
+  static const String imageInternet = 'assets/image/internet.png';
   static const String imageQruan = 'assets/image/qruan.gif';
 
 }
