@@ -14,7 +14,7 @@ import 'package:video_player/video_player.dart';
 import '../../provider/provider.dart';
 import '../../provider/providerMusic.dart';
 import '../../style/colors.dart';
-import '../../test.dart';
+import 'CustomOrientationControls.dart';
 import 'fullScreen.dart';
 
 class VideoScreen extends StatefulWidget {

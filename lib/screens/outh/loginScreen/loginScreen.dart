@@ -5,7 +5,7 @@ import 'package:new_music/componentes/defaultTextForm.dart';
 import 'package:new_music/generated/assets.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/loding.dart';
+import 'package:new_music/componentes/loding.dart';
 import 'package:new_music/style/colors.dart';
 
 

@@ -8,7 +8,7 @@ import 'package:new_music/constant/const.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../test.dart';
+import 'CustomOrientationControls.dart';
 
 class FullScreen extends StatefulWidget {
   FullScreen({Key? key}) : super(key: key);

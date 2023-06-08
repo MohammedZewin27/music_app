@@ -197,7 +197,7 @@ class _RadioScreenState extends State<RadioScreen> {
                     return const Center(child: Text('SomeThing Wrong'));
                   }
                   return ListView.builder(
-                      itemCount: snapshot.data?.radios?.length,
+                      itemCount: snapshot.data!.radios?.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () async {
@@ -249,9 +249,7 @@ class _RadioScreenState extends State<RadioScreen> {
     player.pause();
   }
 
-  seekTo(int sec) {
-    player.seek(Duration(seconds: sec));
-  }
+
 
   stopPlay() {
     player.stop();

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:new_music/firebaseError.dart';
 import 'package:new_music/generated/assets.dart';
-import 'package:new_music/loding.dart';
+import 'package:new_music/componentes/loding.dart';
 
 import '../../../componentes/defaultButton.dart';
 import '../../../componentes/defaultTextForm.dart';

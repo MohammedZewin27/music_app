@@ -6,17 +6,11 @@ class Assets {
   static const String fontsLilitaOneRegular = 'assets/fonts/LilitaOne-Regular.ttf';
   static const String fontsReemKufiVariableFontWght = 'assets/fonts/ReemKufi-VariableFont_wght.ttf';
   static const String iconLeading = 'assets/icon/leading.png';
-  static const String iconMusic = 'assets/icon/music.png';
-  static const String iconMusicBack = 'assets/icon/musicBack.png';
   static const String iconMusicIconCard = 'assets/icon/musicIconCard.png';
-  static const String iconPuse = 'assets/icon/puse.png';
   static const String iconRadio = 'assets/icon/radio.png';
-  static const String iconVector = 'assets/icon/Vector.png';
   static const String iconVideoIcon = 'assets/icon/videoIcon.png';
   static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
-  static const String imageMusic = 'assets/image/Music.jpg';
   static const String imageQruan = 'assets/image/qruan.gif';
-  static const String imageZewin = 'assets/image/zewin.webp';
 
 }
