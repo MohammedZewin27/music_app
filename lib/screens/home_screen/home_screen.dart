@@ -24,81 +24,88 @@ class Home_Screen extends StatelessWidget {
     return StreamBuilder<ConnectivityResult>(
       stream: Connectivity().onConnectivityChanged,
       builder: (context, snapshot) {
-        return Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                snapshot.data != ConnectivityResult.none && allVideo.isNotEmpty
-                    ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        height: 300,
-                        child: Swiper(
-                          loop: false,
-                          itemCount: allVideo.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                child: Image.network(
-                                  videos[index].image,
-                                  fit: BoxFit.fill,
-                                ));
-                          },
-                          pagination: const SwiperPagination(),
-                          control: const SwiperControl(),
-                          itemWidth: 300.0,
-                          onTap: (index) {
-                            indexVideo = index;
-                            Navigator.pushNamed(context, FullScreen.routeName);
-                          },
-                          layout: SwiperLayout.STACK,
-                        ),
-                      )
-                    : Container(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-               mainAxisAlignment: MainAxisAlignment.spaceAround,
+        return Stack(
+          children: [
+            Image.asset(Assets.imageBack,fit: BoxFit.fill,width: double.infinity,),
+
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, RadioScreen.routeName);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              image: const DecorationImage(
-                                  image: AssetImage(Assets.imageRadiolive),
-                                  fit: BoxFit.cover)),
-                          width: 100,
-                          height: 100,
-                        )),
-                    InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, TvHome.routeName);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              image: const DecorationImage(
-                                  image: AssetImage(Assets.imageTv),
-                                  fit: BoxFit.cover)),
-                          width: 100,
-                          height: 100,
-                        )),
+                    snapshot.data != ConnectivityResult.none && allVideo.isNotEmpty
+                        ? Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            height: 300,
+                            child: Swiper(
+                              loop: false,
+                              itemCount: allVideo.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: Image.network(
+                                      videos[index].image,
+                                      fit: BoxFit.fill,
+                                    ));
+                              },
+                              pagination: const SwiperPagination(),
+                              control: const SwiperControl(),
+                              itemWidth: 300.0,
+                              onTap: (index) {
+                                indexVideo = index;
+                                Navigator.pushNamed(context, FullScreen.routeName);
+                              },
+                              layout: SwiperLayout.STACK,
+                            ),
+                          )
+                        : Container(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, RadioScreen.routeName);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  image: const DecorationImage(
+                                      image: AssetImage(Assets.imageRadiolive),
+                                      fit: BoxFit.cover)),
+                              width: 100,
+                              height: 100,
+                            )),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, TvHome.routeName);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  image: const DecorationImage(
+                                      image: AssetImage(Assets.imageTv),
+                                      fit: BoxFit.fill)),
+                              width: 100,
+                              height: 100,
+                            )),
+                      ],
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       },
     );

@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsImageCondyFilm = 'assets/image/condyFilm.jfif';
   static const String fontsCherryCreamSodaRegular = 'assets/fonts/CherryCreamSoda-Regular.ttf';
   static const String fontsLilitaOneRegular = 'assets/fonts/LilitaOne-Regular.ttf';
   static const String fontsReemKufiVariableFontWght = 'assets/fonts/ReemKufi-VariableFont_wght.ttf';
@@ -22,6 +23,6 @@ class Assets {
   static const String imageQruan = 'assets/image/qruan.gif';
   static const String imageQruanKarim = 'assets/image/qruanKarim.jpg';
   static const String imageRadiolive = 'assets/image/radiolive.jpg';
-  static const String imageTv = 'assets/image/tv.avif';
+  static const String imageTv = 'assets/image/tv.PNG';
 
 }
