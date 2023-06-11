@@ -8,7 +8,7 @@ import 'package:new_music/constant/const.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../test.dart';
+import 'CustomOrientationControls.dart';
 
 class FullScreen extends StatefulWidget {
   FullScreen({Key? key}) : super(key: key);
@@ -65,28 +65,30 @@ class _FullScreenState extends State<FullScreen> {
           flickManager.flickControlManager?.autoResume();
         }
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: 400,
-            child: FlickVideoPlayer(
-              flickManager: flickManager,
-              preferredDeviceOrientationFullscreen: const [
-                DeviceOrientation.portraitUp,
-                DeviceOrientation.landscapeLeft,
-                DeviceOrientation.landscapeRight,
-              ],
-              flickVideoWithControls: FlickVideoWithControls(
-                controls: CustomOrientationControls(dataManager: dataManager),
-              ),
-              flickVideoWithControlsFullscreen: FlickVideoWithControls(
-                videoFit: BoxFit.fitWidth,
-                controls: CustomOrientationControls(dataManager: dataManager),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 400,
+              child: FlickVideoPlayer(
+                flickManager: flickManager,
+                preferredDeviceOrientationFullscreen: const [
+                  DeviceOrientation.portraitUp,
+                  DeviceOrientation.landscapeLeft,
+                  DeviceOrientation.landscapeRight,
+                ],
+                flickVideoWithControls: FlickVideoWithControls(
+                  controls: CustomOrientationControls(dataManager: dataManager),
+                ),
+                flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                  videoFit: BoxFit.fitWidth,
+                  controls: CustomOrientationControls(dataManager: dataManager),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

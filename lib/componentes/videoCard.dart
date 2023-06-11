@@ -54,19 +54,12 @@ class VideoCard extends StatelessWidget {
             width: double.infinity,
             child: Row(
               children: [
-                image.length > 10
-                    ? Image(
+               Image(
                         image: NetworkImage(image),
                         height: height,
                         width: height,
                         fit: BoxFit.fill,
-                      )
-                    : Image(
-                  image: const AssetImage(Assets.imageZewin),
-                  height: height,
-                  width: height,
-                  fit: BoxFit.fill,
-                ),
+                      ),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

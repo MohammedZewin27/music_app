@@ -14,7 +14,7 @@ import 'package:video_player/video_player.dart';
 import '../../provider/provider.dart';
 import '../../provider/providerMusic.dart';
 import '../../style/colors.dart';
-import '../../test.dart';
+import 'CustomOrientationControls.dart';
 import 'fullScreen.dart';
 
 class VideoScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _VideoScreenState extends State<VideoScreen> {
   }
 
   bool controllerInitialize = false;
-
+int indexFull=0;
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderVideo>(context);
@@ -88,6 +88,7 @@ class _VideoScreenState extends State<VideoScreen> {
                   ),
                   IconButton(
                       onPressed: () {
+                        indexVideo = indexFull;
                         Navigator.pushNamed(context, FullScreen.routeName);
                       },
                       icon: const Icon(
@@ -111,6 +112,7 @@ class _VideoScreenState extends State<VideoScreen> {
                   itemCount: videos.length,
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
+                      indexFull=index;
                       controller.dispose();
                       controller = VideoPlayerController.file(
                           File(videos[index].filePath))

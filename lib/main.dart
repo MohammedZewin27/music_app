@@ -8,6 +8,7 @@ import 'package:new_music/provider/providerDatabase.dart';
 import 'package:new_music/provider/providerMusic.dart';
 import 'package:new_music/provider/providerVideo.dart';
 import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
+import 'package:new_music/screens/home_screen/liveStream/live%20Stream.dart';
 import 'package:new_music/screens/home_screen/radioScreen.dart';
 import 'package:new_music/screens/outh/loginScreen/loginScreen.dart';
 import 'package:new_music/screens/outh/signupScreen/signupScreen.dart';
@@ -21,6 +22,7 @@ import 'package:provider/provider.dart';
 
 import 'componentes/openYouTubeScreen.dart';
 import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,8 +61,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<ProviderData>(context);
-    Provider.of<MyProvider>(context);
-    Provider.of<ProviderMusic>(context);
     return MaterialApp(
       title: 'music app',
       localizationsDelegates: const [
@@ -87,6 +87,7 @@ class MyApp extends StatelessWidget {
         FullScreen.routeName: (context) => FullScreen(),
         OpenYouTube.routeName: (context) => OpenYouTube(),
         RadioScreen.routeName: (context) => RadioScreen(),
+        LiveStream.routeName: (context) => LiveStream(),
       },
     );
   }

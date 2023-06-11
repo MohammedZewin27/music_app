@@ -206,21 +206,27 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
   }
 
   Future<void> insertVideoInDatabase(String url) async {
-    var video = Provider.of<ProviderData>(context, listen: false);
-    var youtubeExplode = YoutubeExplode();
-    var videoInfo = await youtubeExplode.videos.get(url);
-    var videoId = await videoInfo.id;
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    var myVideo = MyVideo(
-        videoId: videoId.value.toString(),
-        image: 'https://img.youtube.com/vi/$videoId/0.jpg',
-        title: videoInfo.title,
-        thumbnailUrl: videoInfo.url,
-        duration: videoInfo.duration.toString().substring(2, 7),
-        publishDate: videoInfo.publishDate.toString().substring(0, 11),
-        filePath: '$appDocPath/${videoInfo.id}');
+    try{
+      var video = Provider.of<ProviderData>(context, listen: false);
+      var youtubeExplode = YoutubeExplode();
+      var videoInfo = await youtubeExplode.videos.get(url);
+      var videoId = await videoInfo.id;
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String appDocPath = appDocDir.path;
+      var myVideo = MyVideo(
+          videoId: videoId.value.toString(),
+          image: 'https://img.youtube.com/vi/$videoId/0.jpg',
+          title: videoInfo.title,
+          thumbnailUrl: videoInfo.url,
+          duration: videoInfo.duration.toString().substring(2, 7),
+          publishDate: videoInfo.publishDate.toString().substring(0, 11),
+          filePath: '$appDocPath/${videoInfo.id}');
 
-    video.insertDatabaseVideo(myVideo: myVideo,);
+      video.insertDatabaseVideo(myVideo: myVideo,);
+      print('successfully insertVideoInDatabase ======> Done');
+    }catch (e){
+      print('Error insertVideoInDatabase ======> $e');
+    }
+
   }
 }

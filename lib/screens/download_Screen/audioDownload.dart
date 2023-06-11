@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_music/constant/const.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'dart:io';
@@ -106,31 +107,38 @@ class _AudioDownloaderState extends State<AudioDownloader> {
   }
 
   Future<void> downloadAudio() async {
-    try {
-      var youtube = YoutubeExplode();
-      var video = await youtube.videos.get(_videoUrl);
-      var manifest = await youtube.videos.streamsClient.getManifest(video.id);
-      var audioStreamInfo = manifest.audioOnly.withHighestBitrate();
-      var stream = youtube.videos.streamsClient.get(audioStreamInfo);
+    var permisson = await Permission.storage.request();
+    if (permisson.isGranted){
+      try {
+        var youtube = YoutubeExplode();
+        var video = await youtube.videos.get(_videoUrl);
+        var manifest = await youtube.videos.streamsClient.getManifest(video.id);
+        var audioStreamInfo = manifest.audioOnly.withHighestBitrate();
+        var stream = youtube.videos.streamsClient.get(audioStreamInfo);
 
 
-      var appDir = await getExternalStorageDirectory();
-      var savePath =
-          '${appDir?.path}/${video.title}.${audioStreamInfo.container.name}';
-      var file = File(savePath);
+        var appDir = await getExternalStorageDirectory();
+        var savePath =
+            '${appDir?.path}/${video.title}.${audioStreamInfo.container.name}';
+        var file = File(savePath);
 
-      updateStatus('Downloading...',);
-      await stream.pipe(file.openWrite());
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: PREMIUMCOLOR,
-          content: Text('Download complete',
-              style: TextStyle(color: Colors.white, fontSize: 25))));
-      print(savePath);
-      print(savePath.toString());
-      await insertVideoInDatabase(_videoUrl, savePath.toString());
-    } catch (e) {
-      updateStatus('Error: $e');
+        updateStatus('Downloading...',);
+        await stream.pipe(file.openWrite());
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: PREMIUMCOLOR,
+            content: Text('Download complete',
+                style: TextStyle(color: Colors.white, fontSize: 25))));
+        print(savePath);
+        print(savePath.toString());
+        await insertVideoInDatabase(_videoUrl, savePath.toString());
+      } catch (e) {
+        updateStatus('Error: $e');
+      }
+    }else {
+      await Permission.storage.request();
     }
+
+
   }
 
   void updateStatus(String message) {
