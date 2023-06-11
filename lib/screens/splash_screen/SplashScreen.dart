@@ -9,7 +9,6 @@ import '../outh/loginScreen/loginScreen.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
   static const String routeName = 'SplashScreen';
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }

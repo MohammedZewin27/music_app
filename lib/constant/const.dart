@@ -8,3 +8,5 @@ List<MyVideo> videos = [];
 
 int indexMusic=0;
 int indexVideo=0;
+int channelIndex = 0;
+

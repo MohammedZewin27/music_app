@@ -9,9 +9,18 @@ class Assets {
   static const String iconMusicIconCard = 'assets/icon/musicIconCard.png';
   static const String iconRadio = 'assets/icon/radio.png';
   static const String iconVideoIcon = 'assets/icon/videoIcon.png';
+  static const String imageAlJazeeraArabic = 'assets/image/AlJazeeraArabic.png';
+  static const String imageAlarabia = 'assets/image/alarabia.png';
+  static const String imageArabicFilm = 'assets/image/arabicFilm.webp';
   static const String imageBacgroundMusic = 'assets/image/bacgroundMusic.png';
   static const String imageBack = 'assets/image/back.png';
+  static const String imageBeINSPORTS = 'assets/image/beINSPORTS.png';
+  static const String imageCbc = 'assets/image/cbc.jpg';
+  static const String imageCondyFilm = 'assets/image/condyFilm.png';
   static const String imageInternet = 'assets/image/internet.png';
   static const String imageQruan = 'assets/image/qruan.gif';
+  static const String imageQruanKarim = 'assets/image/qruanKarim.png';
+  static const String imageRadio = 'assets/image/radio.png';
+  static const String imageTv = 'assets/image/tv.avif';
 
 }

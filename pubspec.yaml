@@ -43,6 +43,8 @@ dependencies:
   visibility_detector: ^0.4.0+2
 #  audio_service: ^0.18.10
   http: ^0.13.6
+  card_swiper: ^2.0.4
+
 
 
 
