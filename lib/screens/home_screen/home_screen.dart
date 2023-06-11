@@ -7,20 +7,20 @@ import 'package:new_music/generated/assets.dart';
 import 'package:new_music/network/api_manager.dart';
 import 'package:new_music/provider/provider.dart';
 import 'package:new_music/screens/home_screen/radioScreen.dart';
+import 'package:new_music/screens/home_screen/tv/liveStream/live%20Stream.dart';
+import 'package:new_music/screens/home_screen/tv/tvHome.dart';
 import 'package:new_music/style/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../componentes/categoryData.dart';
 import '../../model/api_Radios.dart';
 import '../video_screen/fullScreen.dart';
-import 'liveStream/live Stream.dart';
 
 class Home_Screen extends StatelessWidget {
   const Home_Screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var categorys = CategoryData.getCategoryData();
     return StreamBuilder<ConnectivityResult>(
       stream: Connectivity().onConnectivityChanged,
       builder: (context, snapshot) {
@@ -65,46 +65,37 @@ class Home_Screen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RadioScreen.routeName);
-                    },
-                    child: SizedBox(
-                      width: 150,
-                      height: 100,
-                      child: Image.asset(Assets.imageRadio),
-                    )),
-                InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RadioScreen.routeName);
-                    },
-                    child: SizedBox(
-                      width: 150,
-                      height: 100,
-                      child: Image.asset(Assets.imageTv),
-                    )),
-                Expanded(
-                    child: GridView.builder(
-                  itemCount: categorys.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 8),
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
+                Row(
+               mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
                         onTap: () {
-                          var pro = Provider.of<MyProvider>(context,listen: false);
-                          pro.changeChannelIndex(index);
-                          Navigator.pushNamed(context, LiveStream.routeName);
+                          Navigator.pushNamed(context, RadioScreen.routeName);
                         },
                         child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              image: DecorationImage(image: AssetImage(categorys[index].image),fit: BoxFit.fill)
-                            ),
-                            child: Text('')));
-                  },
-                ))
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: const DecorationImage(
+                                  image: AssetImage(Assets.imageRadiolive),
+                                  fit: BoxFit.cover)),
+                          width: 100,
+                          height: 100,
+                        )),
+                    InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, TvHome.routeName);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              image: const DecorationImage(
+                                  image: AssetImage(Assets.imageTv),
+                                  fit: BoxFit.cover)),
+                          width: 100,
+                          height: 100,
+                        )),
+                  ],
+                ),
               ],
             ),
           ),

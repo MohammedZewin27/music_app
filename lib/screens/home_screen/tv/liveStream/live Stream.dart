@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../../componentes/categoryData.dart';
-import '../../../constant/const.dart';
+import '../../../../componentes/categoryData.dart';
+import '../../../../constant/const.dart';
+
+
 
 
 class LiveStream extends StatefulWidget {

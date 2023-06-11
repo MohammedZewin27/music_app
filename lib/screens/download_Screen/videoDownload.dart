@@ -139,7 +139,7 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
   }
 
   Future<void> downloadVideo(url) async {
-    var permisson = await Permission.storage.request();
+    var permisson = await Permission.manageExternalStorage.request();
     if (permisson.isGranted) {
       //download video
       if (urlTextEditingController.text != '') {
@@ -201,7 +201,7 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
         setState(() => downloading = false);
       }
     } else {
-      await Permission.storage.request();
+      await Permission.manageExternalStorage.request();
     }
   }
 

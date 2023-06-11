@@ -85,7 +85,13 @@ class _OpenYouTubeState extends State<OpenYouTube> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('zewin youtube'),
+actions: [
+  IconButton(onPressed: (){
+    setState(() {
 
+    });
+  }, icon: Icon(Icons.refresh_outlined))
+],
         centerTitle: true,
       ),
       body:pro.progressYoutube==100? WebViewWidget(

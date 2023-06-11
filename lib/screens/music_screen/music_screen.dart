@@ -11,7 +11,7 @@ import '../../style/colors.dart';
 class Music_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var providerMusic = Provider.of<ProviderMusic>(context);
+    Provider.of<ProviderMusic>(context);
 
       return Scaffold(
         body:  allAudio.isNotEmpty? Play_Screen(audio: audios[indexMusic]): Center(

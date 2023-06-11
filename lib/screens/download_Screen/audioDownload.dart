@@ -55,50 +55,50 @@ class _AudioDownloaderState extends State<AudioDownloader> {
             const SizedBox(height: 20.0),
             videoId != '' && videoId.length > 10
                 ? Row(
-                    children: [
-                      Image.network(
-                        'https://img.youtube.com/vi/$videoId/0.jpg',
-                        height: 100,
-                        width: 100,
+              children: [
+                Image.network(
+                  'https://img.youtube.com/vi/$videoId/0.jpg',
+                  height: 100,
+                  width: 100,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Container(
+                      child: Text(
+                        maxLines: 2,
+                        videoTitle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: Colors.green, fontSize: 15),
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                            child: Text(
-                              maxLines: 2,
-                              videoTitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: Colors.green, fontSize: 15),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                  ),
+                ),
+              ],
+            )
                 : Container(),
             videoId != '' && videoId.length > 10
                 ? ElevatedButton(
-                    onPressed: () {
-                      downloadAudio();
-                    },
-                    child: const Text('Download Audio'),
-                  )
+              onPressed: () {
+                downloadAudio();
+              },
+              child: const Text('Download Audio'),
+            )
                 : Container(),
             const SizedBox(height: 20.0),
             Text(_statusMessage),
             downloading
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: BUTTONCOLOR3,
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(BUTTONCOLOR2),
-                    ),
-                  )
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: LinearProgressIndicator(
+                value: progress,
+                backgroundColor: BUTTONCOLOR3,
+                valueColor:
+                const AlwaysStoppedAnimation<Color>(BUTTONCOLOR2),
+              ),
+            )
                 : Container(),
           ],
         ),
@@ -107,7 +107,7 @@ class _AudioDownloaderState extends State<AudioDownloader> {
   }
 
   Future<void> downloadAudio() async {
-    var permisson = await Permission.storage.request();
+    var permisson = await Permission.manageExternalStorage.request();
     if (permisson.isGranted){
       try {
         var youtube = YoutubeExplode();
@@ -135,7 +135,7 @@ class _AudioDownloaderState extends State<AudioDownloader> {
         updateStatus('Error: $e');
       }
     }else {
-      await Permission.storage.request();
+       await Permission.manageExternalStorage.request();
     }
 
 
