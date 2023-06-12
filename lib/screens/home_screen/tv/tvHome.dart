@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../componentes/categoryData.dart';
+import '../../../componentes/categoryTv.dart';
 import '../../../generated/assets.dart';
 import '../../../provider/provider.dart';
 import 'liveStream/live Stream.dart';

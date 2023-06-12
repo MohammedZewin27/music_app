@@ -9,14 +9,24 @@ import 'package:flutter/material.dart';
 
 
 class ProviderMusic extends ChangeNotifier{
-/// radio
-  String titleRadio='الله اكبر';
+
+  ///radio Egypt
+  String titleRadioEgypt='الله اكبر';
   changeTitleRadio(String title){
-    titleRadio=title;
+    titleRadioEgypt=title;
     notifyListeners();
   }
   int indexMusic=0;
   bool isPlayRadio=false;
+
+  /// radio
+  String titleRadio='الله اكبر';
+  changeTitleRadioEgypt(String title){
+    titleRadio=title;
+    notifyListeners();
+  }
+  int indexRadioEgypt=0;
+  bool isPlayRadioEgypt=false;
 
 
 

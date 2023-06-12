@@ -10,7 +10,7 @@ import 'package:media_z/screens/setting_screen/setting_screen.dart';
 import 'package:media_z/screens/video_screen/video_screen.dart';
 
 import '../constant/const.dart';
-import '../screens/home_screen/radioScreen.dart';
+import '../screens/home_screen/radio/radioScreen.dart';
 import '../screens/music_screen/music_screen.dart';
 import '../screens/music_screen/play_screen.dart';
 

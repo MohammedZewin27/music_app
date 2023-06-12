@@ -6,13 +6,14 @@ import 'package:media_z/constant/const.dart';
 import 'package:media_z/generated/assets.dart';
 import 'package:media_z/network/api_manager.dart';
 import 'package:media_z/provider/provider.dart';
-import 'package:media_z/screens/home_screen/radioScreen.dart';
+import 'package:media_z/screens/home_screen/radio/radioEgypt.dart';
+import 'package:media_z/screens/home_screen/radio/radioScreen.dart';
 import 'package:media_z/screens/home_screen/tv/liveStream/live%20Stream.dart';
 import 'package:media_z/screens/home_screen/tv/tvHome.dart';
 import 'package:media_z/style/colors.dart';
 import 'package:provider/provider.dart';
 
-import '../../componentes/categoryData.dart';
+import '../../componentes/categoryTv.dart';
 import '../../model/api_Radios.dart';
 import '../video_screen/fullScreen.dart';
 
@@ -89,6 +90,19 @@ class Home_Screen extends StatelessWidget {
                         InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, TvHome.routeName);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  image: const DecorationImage(
+                                      image: AssetImage(Assets.imageTv),
+                                      fit: BoxFit.fill)),
+                              width: 100,
+                              height: 100,
+                            )),
+                        InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, RadioEgypt.routeName);
                             },
                             child: Container(
                               decoration: BoxDecoration(

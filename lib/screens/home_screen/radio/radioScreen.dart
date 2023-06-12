@@ -8,12 +8,12 @@ import 'package:media_z/generated/assets.dart';
 import 'package:media_z/network/api_manager.dart';
 import 'package:provider/provider.dart';
 
-import '../../constant/const.dart';
-import '../../model/model_video_youtube.dart';
-import '../../../model/api_Radios.dart';
-import '../../provider/providerDatabase.dart';
-import '../../provider/providerMusic.dart';
-import '../../style/colors.dart';
+import '../../../constant/const.dart';
+import '../../../model/model_video_youtube.dart';
+import '../../../../model/api_Radios.dart';
+import '../../../provider/providerDatabase.dart';
+import '../../../provider/providerMusic.dart';
+import '../../../style/colors.dart';
 
 class RadioScreen extends StatefulWidget {
   static const String routeName = 'radio';

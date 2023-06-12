@@ -8,8 +8,9 @@ import 'package:media_z/provider/providerDatabase.dart';
 import 'package:media_z/provider/providerMusic.dart';
 import 'package:media_z/provider/providerVideo.dart';
 import 'package:media_z/screens/LayoutScreen/LayoutScreen.dart';
+import 'package:media_z/screens/home_screen/radio/radioEgypt.dart';
 
-import 'package:media_z/screens/home_screen/radioScreen.dart';
+import 'package:media_z/screens/home_screen/radio/radioScreen.dart';
 import 'package:media_z/screens/home_screen/tv/liveStream/live%20Stream.dart';
 import 'package:media_z/screens/home_screen/tv/tvHome.dart';
 import 'package:media_z/screens/outh/loginScreen/loginScreen.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
         RadioScreen.routeName: (context) => RadioScreen(),
         LiveStream.routeName: (context) => LiveStream(),
         TvHome.routeName: (context) => const TvHome(),
+        RadioEgypt.routeName: (context) => const RadioEgypt(),
       },
     );
   }
