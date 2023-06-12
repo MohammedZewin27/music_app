@@ -1,4 +1,4 @@
-name: new_music
+name: media_z
 description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -44,14 +44,6 @@ dependencies:
 #  audio_service: ^0.18.10
   http: ^0.13.6
   card_swiper: ^2.0.4
-
-
-
-
-
-
-
-
 
 
 

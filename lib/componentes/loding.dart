@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/style/colors.dart';
+import 'package:media_z/style/colors.dart';
 
 class Loading {
   static void hideLoading(BuildContext context) {

@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/componentes/defaultButton.dart';
-import 'package:new_music/componentes/defaultTextForm.dart';
-import 'package:new_music/generated/assets.dart';
+import 'package:media_z/componentes/defaultButton.dart';
+import 'package:media_z/componentes/defaultTextForm.dart';
+import 'package:media_z/generated/assets.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/componentes/loding.dart';
-import 'package:new_music/style/colors.dart';
+import 'package:media_z/componentes/loding.dart';
+import 'package:media_z/style/colors.dart';
 
 
 import '../../../firebaseError.dart';

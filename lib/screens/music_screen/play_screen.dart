@@ -1,10 +1,10 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/componentes/videoCard.dart';
-import 'package:new_music/provider/providerMusic.dart';
+import 'package:media_z/componentes/videoCard.dart';
+import 'package:media_z/provider/providerMusic.dart';
 import 'package:provider/provider.dart';
-import '../home_screen/radioScreen.dart';
+import '../home_screen/radio/radioScreen.dart';
 import '../../constant/const.dart';
 import '../../model/model_video_youtube.dart';
 import '../../provider/provider.dart';

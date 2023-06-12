@@ -9,7 +9,17 @@ import 'package:flutter/material.dart';
 
 
 class ProviderMusic extends ChangeNotifier{
-/// radio
+
+  ///radio Egypt
+  String titleRadioEgypt='الله اكبر';
+  changeinexRadioEgypt(index){
+    indexRadioEgypt=index;
+    notifyListeners();
+  }
+  int indexRadioEgypt=0;
+  bool isPlayRadioEgypt=false;
+
+  /// radio
   String titleRadio='الله اكبر';
   changeTitleRadio(String title){
     titleRadio=title;
@@ -17,6 +27,7 @@ class ProviderMusic extends ChangeNotifier{
   }
   int indexMusic=0;
   bool isPlayRadio=false;
+
 
 
 

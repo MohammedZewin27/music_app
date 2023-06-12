@@ -3,21 +3,24 @@ import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/provider/provider.dart';
-import 'package:new_music/provider/providerDatabase.dart';
-import 'package:new_music/provider/providerMusic.dart';
-import 'package:new_music/provider/providerVideo.dart';
-import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
-import 'package:new_music/screens/home_screen/liveStream/live%20Stream.dart';
-import 'package:new_music/screens/home_screen/radioScreen.dart';
-import 'package:new_music/screens/outh/loginScreen/loginScreen.dart';
-import 'package:new_music/screens/outh/signupScreen/signupScreen.dart';
+import 'package:media_z/provider/provider.dart';
+import 'package:media_z/provider/providerDatabase.dart';
+import 'package:media_z/provider/providerMusic.dart';
+import 'package:media_z/provider/providerVideo.dart';
+import 'package:media_z/screens/LayoutScreen/LayoutScreen.dart';
+import 'package:media_z/screens/home_screen/radio/radioEgypt.dart';
 
-import 'package:new_music/screens/splash_screen/SplashScreen.dart';
-import 'package:new_music/style/theme.dart';
+import 'package:media_z/screens/home_screen/radio/radioScreen.dart';
+import 'package:media_z/screens/home_screen/tv/liveStream/live%20Stream.dart';
+import 'package:media_z/screens/home_screen/tv/tvHome.dart';
+import 'package:media_z/screens/outh/loginScreen/loginScreen.dart';
+import 'package:media_z/screens/outh/signupScreen/signupScreen.dart';
+
+import 'package:media_z/screens/splash_screen/SplashScreen.dart';
+import 'package:media_z/style/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/screens/video_screen/fullScreen.dart';
+import 'package:media_z/screens/video_screen/fullScreen.dart';
 import 'package:provider/provider.dart';
 
 import 'componentes/openYouTubeScreen.dart';
@@ -71,7 +74,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [
         Locale('en'), // English
-        Locale('ar'), // Spanish
+        Locale('ar'), // arabic
       ],
       locale: Locale('en'),
       debugShowCheckedModeBanner: false,
@@ -88,6 +91,8 @@ class MyApp extends StatelessWidget {
         OpenYouTube.routeName: (context) => OpenYouTube(),
         RadioScreen.routeName: (context) => RadioScreen(),
         LiveStream.routeName: (context) => LiveStream(),
+        TvHome.routeName: (context) => const TvHome(),
+        RadioEgypt.routeName: (context) => const RadioEgypt(),
       },
     );
   }

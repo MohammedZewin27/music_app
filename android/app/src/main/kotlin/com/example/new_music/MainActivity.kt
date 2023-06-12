@@ -1,4 +1,4 @@
-package com.example.new_music
+package com.example.media_z
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_music/screens/download_Screen/videoDownload.dart';
+import 'package:media_z/screens/download_Screen/videoDownload.dart';
 
 import '../../style/colors.dart';
 import '../download_Screen/audioDownload.dart';

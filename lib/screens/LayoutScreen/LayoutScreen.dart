@@ -1,14 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:new_music/componentes/openYouTubeScreen.dart';
+import 'package:media_z/componentes/openYouTubeScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/assets.dart';
 import '../../../provider/provider.dart';
 import '../../provider/providerDatabase.dart';
-
-
 
 class LayoutScreen extends StatelessWidget {
   const LayoutScreen({Key? key}) : super(key: key);
@@ -22,16 +20,25 @@ class LayoutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Image.asset(Assets.iconLeading, color: Colors.white),
-        title: Text(provider.textTitle[provider.indexScreen],),
+        title: Text(
+          provider.textTitle[provider.indexScreen],
+        ),
         actions: [
-          IconButton(onPressed: ()async{
-            if(provider.indexScreen==0) await FirebaseAuth.instance.signOut();
-            if(provider.indexScreen==1) await FirebaseAuth.instance.signOut();
-            if(provider.indexScreen==2) await FirebaseAuth.instance.signOut();
-            if(provider.indexScreen==3) {
-              await Navigator.pushNamed(context, OpenYouTube.routeName);
-            }
-          }, icon: provider.icons[provider.indexScreen]),
+          IconButton(
+              onPressed: () async {
+                if (provider.indexScreen == 0)
+                  await FirebaseAuth.instance.signOut();
+                if (provider.indexScreen == 1) {
+                  await Navigator.pushNamed(context, OpenYouTube.routeName);
+                }
+                if (provider.indexScreen == 2) {
+                  await Navigator.pushNamed(context, OpenYouTube.routeName);
+                }
+                if (provider.indexScreen == 3) {
+                  await Navigator.pushNamed(context, OpenYouTube.routeName);
+                }
+              },
+              icon: provider.icons[provider.indexScreen]),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

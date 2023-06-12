@@ -4,13 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:new_music/screens/home_screen/home_screen.dart';
+import 'package:media_z/screens/home_screen/home_screen.dart';
 
-import 'package:new_music/screens/setting_screen/setting_screen.dart';
-import 'package:new_music/screens/video_screen/video_screen.dart';
+import 'package:media_z/screens/setting_screen/setting_screen.dart';
+import 'package:media_z/screens/video_screen/video_screen.dart';
 
 import '../constant/const.dart';
-import '../screens/home_screen/radioScreen.dart';
+import '../screens/home_screen/radio/radioScreen.dart';
 import '../screens/music_screen/music_screen.dart';
 import '../screens/music_screen/play_screen.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:new_music/provider/provider.dart';
+import 'package:media_z/provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -85,7 +85,13 @@ class _OpenYouTubeState extends State<OpenYouTube> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('zewin youtube'),
+actions: [
+  IconButton(onPressed: (){
+    setState(() {
 
+    });
+  }, icon: Icon(Icons.refresh_outlined))
+],
         centerTitle: true,
       ),
       body:pro.progressYoutube==100? WebViewWidget(
