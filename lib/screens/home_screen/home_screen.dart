@@ -60,7 +60,7 @@ class Home_Screen extends StatelessWidget {
                           )
                         : Container(),
                     const SizedBox(
-                      height: 10,
+                      height: 50,
                     ),
                     Row(
                    mainAxisAlignment: MainAxisAlignment.spaceAround,
