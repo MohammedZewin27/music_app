@@ -63,67 +63,11 @@ class _RadioEgyptState extends State<RadioEgypt> {
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge
-                  ?.copyWith(fontSize: 20),
+                  ?.copyWith(fontSize: 30),
               maxLines: 2,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    if(pro.indexRadioEgypt!=0){
-                      pro.isPlayRadioEgypt = !pro.isPlayRadioEgypt;
-                      setState(() {
-                        pro.isPlayRadioEgypt
-                            ? playMusic(radio[pro.indexRadioEgypt-1].id)
-                            : pauseMusic();
-                      });
-                    }
-
-                  },
-                  icon: const Icon(
-                    Icons.skip_previous_rounded,
-                    size: 30,
-                  ),
-                ),
-                IconButton(
-                    onPressed: () async {
-                      pro.isPlayRadioEgypt = !pro.isPlayRadioEgypt;
-                      setState(() {
-                        pro.isPlayRadioEgypt
-                            ? playMusic(radio[pro.indexRadioEgypt].id)
-                            : pauseMusic();
-                      });
-                    },
-                    icon:
-                        pro.isPlayRadioEgypt
-                            ?
-                        const Icon(
-                      Icons.pause_circle_outlined,
-                      size: 40,
-                    )
-                        : const Icon(
-                      Icons.play_circle_fill_rounded,
-                      size: 40,
-                    ),
-                    ),
-                IconButton(
-                  onPressed: () {
-                    if(pro.indexRadioEgypt>radio.length-1){
-                      pro.isPlayRadioEgypt = !pro.isPlayRadioEgypt;
-                      setState(() {
-                        pro.isPlayRadioEgypt
-                            ? playMusic(radio[pro.indexRadioEgypt+1].id)
-                            : pauseMusic();
-                      });
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.skip_next,
-                    size: 30,
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: 100,
             ),
             Expanded(
               child: GridView.builder(
@@ -135,12 +79,15 @@ class _RadioEgyptState extends State<RadioEgypt> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () async {
-                      await playMusic(radio[index].id);
+                      var pro =
+                          Provider.of<ProviderMusic>(context, listen: false);
+                      pro.changeinexRadioEgypt(index);
+                      await playMusic(radio[pro.indexRadioEgypt].id);
                       setState(() {});
                     },
                     child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(25),
                             image: DecorationImage(
                                 image: AssetImage(radio[index].image),
                                 fit: BoxFit.fill)),

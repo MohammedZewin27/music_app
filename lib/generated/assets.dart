@@ -28,6 +28,7 @@ class Assets {
   static const String imageQruanRaidoz = 'assets/image/qruanRaidoz.jpg';
   static const String imageRadioMaser = 'assets/image/radioMaser.jpg';
   static const String imageRadiolive = 'assets/image/radiolive.jpg';
+  static const String imageRdimasr = 'assets/image/rdimasr.jpg';
   static const String imageRfm = 'assets/image/rfm.png';
   static const String imageTv = 'assets/image/tv.PNG';
 

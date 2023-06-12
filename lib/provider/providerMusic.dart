@@ -12,21 +12,22 @@ class ProviderMusic extends ChangeNotifier{
 
   ///radio Egypt
   String titleRadioEgypt='الله اكبر';
+  changeinexRadioEgypt(index){
+    indexRadioEgypt=index;
+    notifyListeners();
+  }
+  int indexRadioEgypt=0;
+  bool isPlayRadioEgypt=false;
+
+  /// radio
+  String titleRadio='الله اكبر';
   changeTitleRadio(String title){
-    titleRadioEgypt=title;
+    titleRadio=title;
     notifyListeners();
   }
   int indexMusic=0;
   bool isPlayRadio=false;
 
-  /// radio
-  String titleRadio='الله اكبر';
-  changeTitleRadioEgypt(String title){
-    titleRadio=title;
-    notifyListeners();
-  }
-  int indexRadioEgypt=0;
-  bool isPlayRadioEgypt=false;
 
 
 
