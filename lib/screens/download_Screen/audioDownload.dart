@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_music/constant/const.dart';
+import 'package:media_z/constant/const.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';

@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/provider/providerMusic.dart';
-import 'package:new_music/screens/music_screen/play_screen.dart';
+import 'package:media_z/provider/providerMusic.dart';
+import 'package:media_z/screens/music_screen/play_screen.dart';
 import 'package:provider/provider.dart';
 import '../../constant/const.dart';
 import '../../generated/assets.dart';

@@ -4,8 +4,8 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/generated/assets.dart';
-import 'package:new_music/network/api_manager.dart';
+import 'package:media_z/generated/assets.dart';
+import 'package:media_z/network/api_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../constant/const.dart';

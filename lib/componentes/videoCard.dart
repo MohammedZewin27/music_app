@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:new_music/generated/assets.dart';
+import 'package:media_z/generated/assets.dart';
 import 'package:provider/provider.dart';
 import '../constant/const.dart';
 import '../model/model_video_youtube.dart';

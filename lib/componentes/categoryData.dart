@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_music/generated/assets.dart';
+import 'package:media_z/generated/assets.dart';
 
 
 class CategoryData {

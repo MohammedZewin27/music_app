@@ -1,15 +1,15 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:new_music/componentes/homeCard.dart';
-import 'package:new_music/constant/const.dart';
-import 'package:new_music/generated/assets.dart';
-import 'package:new_music/network/api_manager.dart';
-import 'package:new_music/provider/provider.dart';
-import 'package:new_music/screens/home_screen/radioScreen.dart';
-import 'package:new_music/screens/home_screen/tv/liveStream/live%20Stream.dart';
-import 'package:new_music/screens/home_screen/tv/tvHome.dart';
-import 'package:new_music/style/colors.dart';
+import 'package:media_z/componentes/homeCard.dart';
+import 'package:media_z/constant/const.dart';
+import 'package:media_z/generated/assets.dart';
+import 'package:media_z/network/api_manager.dart';
+import 'package:media_z/provider/provider.dart';
+import 'package:media_z/screens/home_screen/radioScreen.dart';
+import 'package:media_z/screens/home_screen/tv/liveStream/live%20Stream.dart';
+import 'package:media_z/screens/home_screen/tv/tvHome.dart';
+import 'package:media_z/style/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../componentes/categoryData.dart';

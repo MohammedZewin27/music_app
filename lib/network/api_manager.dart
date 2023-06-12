@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:new_music/model/api_Radios.dart';
+import 'package:media_z/model/api_Radios.dart';
 
 class ApiManager {
   static const String BASE = 'mp3quran.net/api/v3/radios';

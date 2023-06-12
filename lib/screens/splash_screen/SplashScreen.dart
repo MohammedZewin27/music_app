@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:new_music/screens/LayoutScreen/LayoutScreen.dart';
+import 'package:media_z/screens/LayoutScreen/LayoutScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/provider.dart';

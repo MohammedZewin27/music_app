@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:new_music/constant/const.dart';
+import 'package:media_z/constant/const.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -160,18 +160,18 @@ class _DownLoadVideoState extends State<DownLoadVideo> {
 
         var filePath = File('$appDocPath/${videoDownload.id}');
         //delete filePath if exists
-        if (filePath.existsSync()) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text(
-                '  video exist!',
-                style: TextStyle(color: Colors.red),
-              )));
-          setState(() {
-            downloading = false;
-          });
-          return;
-          // filePath.deleteSync();
-        }
+        // if (filePath.existsSync()) {
+        //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //       content: Text(
+        //         '  video exist!',
+        //         style: TextStyle(color: Colors.red),
+        //       )));
+        //   setState(() {
+        //     downloading = false;
+        //   });
+        //   return;
+        //   // filePath.deleteSync();
+        // }
         var output = filePath.openWrite(mode: FileMode.writeOnlyAppend);
         var size = audio.size.totalBytes;
         var count = 0;

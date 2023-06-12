@@ -9,6 +9,6 @@ const Color LABLECOLOR1=Color.fromRGBO(241, 238, 233, 1.0);
 const Color LABLECOLOR=Color.fromRGBO(229, 218, 163, 1.0);
 const Color TEXTCOLOR=Color.fromRGBO(241, 238, 233, 1.0);
 
-
+//    implementation 'com.google.android.material:material:<version>'
 
 
