@@ -35,7 +35,8 @@ class Home_Screen extends StatelessWidget {
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             height: 300,
                             child: Swiper(
-                              loop: false,
+                              loop: true,
+                              autoplay: true,
                               itemCount: allVideo.length,
                               itemBuilder: (context, index) {
                                 return Container(
@@ -48,14 +49,16 @@ class Home_Screen extends StatelessWidget {
                                       fit: BoxFit.fill,
                                     ));
                               },
-                              pagination: const SwiperPagination(),
+                              pagination:const RectSwiperPaginationBuilder(),
                               control: const SwiperControl(),
+                              viewportFraction: 0.8,
+                              scale: 0.9,
                               itemWidth: 300.0,
                               onTap: (index) {
                                 indexVideo = index;
                                 Navigator.pushNamed(context, FullScreen.routeName);
                               },
-                              layout: SwiperLayout.STACK,
+                              // layout: SwiperLayout.STACK,
                             ),
                           )
                         : Container(),
